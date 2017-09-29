@@ -1,2 +1,15 @@
 <h1>New Room</h1>
 <h2>php with no additional framework > rails</h2>
+
+<%= form_with scope: :room, url: rooms_path, local: true do |form| %>
+<p>
+	<%= form.label "name" %><br>
+	<%= form.text_field :name, placeholder: "put your room name here" %>
+</p>
+
+
+<p>
+	<%= form.submit %>
+</p>
+
+<% end %>
