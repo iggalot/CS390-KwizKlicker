@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
 	def new
+		@room = Room.new
 	end
 
 	def show
@@ -9,8 +10,11 @@ class RoomsController < ApplicationController
 	def create
 		@room = Room.new(room_params)
 
-		@room.save
-		redirect_to @room
+		if @room.save
+			redirect_to @room
+		else
+			render 'new'
+		end
 	end
 
 	private
