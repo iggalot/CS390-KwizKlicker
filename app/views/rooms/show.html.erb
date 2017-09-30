@@ -8,6 +8,11 @@
 	<p>
 		<%= question.body %>
 	</p>
+
+	<p>
+		<%= link_to 'Delete Question', [question.room, question],
+			method: :delete, data: { confirm: 'rly?' } %>
+	</p>
 <% end %>
 
 <h2>Add a question:</h2>
