@@ -1,0 +1,27 @@
+<p>
+	<strong>Name:</strong>
+	<%= @room.name %>
+</p>
+
+<h2>Questions</h2>
+<% @room.questions.each do |question| %>
+	<p>
+		<%= question.body %>
+	</p>
+
+	<p>
+		<%= link_to 'Delete Question', [question.room, question],
+			method: :delete, data: { confirm: 'rly?' } %>
+	</p>
+<% end %>
+
+<h2>Add a question:</h2>
+<%= form_with(model: [ @room, @room.questions.build], local: true) do |form| %>
+	<p>
+		<%= form.label :body %><r>
+		<%= form.text_field :body %>
+	</p>
+	<p>
+		<%= form.submit %>
+	</p>
+<% end %>
