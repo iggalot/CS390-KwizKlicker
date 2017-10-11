@@ -1,12 +1,12 @@
 <h1>KwizKlicker Lobby</h1>
 
 <p>
-	<strong>For Teacher: </strong><br>
-	Create Room<br>
-	Join room<br>
-</p>
-
-<p>
-	<strong>For Students: </strong><br>
-	Join room<br>
+	<%= form_with scope: :lobby, local: true do |form| %>
+		<%= form_tag("/new existing", method: "get") do %>
+		  <%= submit_tag("Create New Room") %> NOT FUNCTIONAL
+		<% end %>
+		<%= form_tag("/join existing", method: "get") do %>
+		  <%= submit_tag("Join Existing Room") %> NOT FUNCTIONAL
+		<% end %>
+	<% end %>
 </p>
