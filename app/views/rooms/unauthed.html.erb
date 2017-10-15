@@ -1,0 +1,10 @@
+<strong>this isn't your room!</strong>
+<% flash.each do |k, v| %>
+	<p><%= v %></p>
+<% end %>
+
+<%= form_tag("/rooms/auth", method: "post") do %>
+	<%= hidden_field_tag(:id, params[:id]) %>
+	<%= password_field_tag(:password) %>
+	<%= submit_tag("Authenticate") %>
+<% end %>

@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   resources :rooms do
   	resources :questions
   end
+  scope '/rooms' do
+  	post '/auth' => 'rooms#auth'
+  end
 end
