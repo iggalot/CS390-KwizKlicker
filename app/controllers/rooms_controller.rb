@@ -36,14 +36,13 @@ class RoomsController < ApplicationController
 
 	def create
 		@room = Room.new(room_params.merge(:password=>"password123"))
-		if not session.has_key?(:rooms)
-			session[:rooms] = []
-		end
-
-		# TODO better way
-		session[:rooms].push(Room.last.id + 1)
 			
 		if @room.save
+			if not session.has_key?(:rooms)
+				session[:rooms] = []
+			end
+
+			session[:rooms].push(@room.id)
 			redirect_to @room
 		else
 			render 'new'
