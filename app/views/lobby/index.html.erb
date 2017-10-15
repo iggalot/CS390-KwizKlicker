@@ -1,10 +1,23 @@
 <h1>KwizKlicker Lobby</h1>
 
 <p>
-	<strong>For Teacher: </strong><br>
+	<strong>For Teachers: </strong><br>
 	<a href="/rooms/new">
 		<button>Create Room</button>
 	</a><br>
 	Add Questions<br>
 	Present Quiz<br>
+
+	<br>
+
+	<strong>Your rooms:</strong><br>
+	<% if session.has_key? :rooms %>
+		<% session[:rooms].each do |id| %>
+			<% unless id.nil? %>
+				<a href="/rooms/<%= id %>"><%= Room.find(id).name %></a><br>
+			<% end %>
+		<% end %>
+	<% else %>
+		None
+	<% end %>
 </p>
