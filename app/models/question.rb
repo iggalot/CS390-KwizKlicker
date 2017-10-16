@@ -1,3 +1,3 @@
 class Question < ApplicationRecord
-  has_many :answers, belongs_to :room
+   belongs_to :rooms
 end
