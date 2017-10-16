@@ -16,6 +16,10 @@ class RoomsController < ApplicationController
 	end
 
 	def authed?
+		unless session.has_key? :rooms
+			return false
+		end
+
 		return session[:rooms].include? params[:id].to_i
 	end
 
