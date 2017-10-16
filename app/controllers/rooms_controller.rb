@@ -1,3 +1,5 @@
+require 'simple-password-gen'
+
 class RoomsController < ApplicationController
 	def new
 		@room = Room.new
@@ -35,7 +37,8 @@ class RoomsController < ApplicationController
 		
 
 	def create
-		@room = Room.new(room_params.merge(:password=>"password123"))
+		pwd = Password.pronounceable 8
+		@room = Room.new(room_params.merge(:password=>pwd))
 			
 		if @room.save
 			if not session.has_key?(:rooms)
