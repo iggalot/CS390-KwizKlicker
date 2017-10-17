@@ -8,4 +8,8 @@ Rails.application.routes.draw do
   scope '/rooms' do
   	post '/auth' => 'rooms#auth'
   end
+
+
+    resources :join_room
+
 end
