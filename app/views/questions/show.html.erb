@@ -1,0 +1,24 @@
+<p>
+	<strong>Question</strong>
+	<%= @question.text %>
+</p>
+<br>
+
+
+
+<%= form_with(model: [ @question, @question.answers.build ], local: true) do |form| %>
+<p>
+	<%= form.label :answer %><br>
+	<%= form.text_field :answer %>
+</p>
+<% end %>
+
+
+
+
+<% @article.answers.each do |answer| %>
+<p>
+	<%= answer.representative %>
+	<%= answer.text %>
+</p>
+<% end %>

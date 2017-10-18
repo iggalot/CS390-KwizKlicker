@@ -1,9 +1,28 @@
 class QuestionsController < ApplicationController
+
+	def edit
+		@question = Question.find(params[:id])
+	end
+
+
 	def create
 		@room = Room.find(params[:room_id])
 		@question = @room.questions.create(question_params)
 		redirect_to room_path(@room)
 	end
+
+
+	def update
+		@question = Question.find(params[:id])
+	
+		if @question.update
+			redirect_to @question
+		else
+			render 'edit'
+		end
+	end
+
+
 
 	def destroy
 		@room = Room.find(params[:room_id])
@@ -11,6 +30,8 @@ class QuestionsController < ApplicationController
 		@question.destroy
 		redirect_to room_path(@room)
 	end
+
+
 
 	private
 		def question_params
