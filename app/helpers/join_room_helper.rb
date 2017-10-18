@@ -1,0 +1,2 @@
+module JoinRoomHelper
+end

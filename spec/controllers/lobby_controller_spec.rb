@@ -10,7 +10,10 @@ RSpec.describe LobbyController, type: :controller do
   end
 
   describe "Click Join" do
-  	pending "returns http success for join room request"
+		it "returns http success" do
+			get :index
+			expect(response).to have_http_status(:success)
+		end
 	pending "launches the join room interface screen"
 	pending "The following expextations will all pass"
 	pending "Prompts user for a room code"
