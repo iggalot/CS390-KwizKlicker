@@ -22,6 +22,11 @@ class QuestionsController < ApplicationController
 		end
 	end
 
+	def show
+		@question = Question.find(params[:id])
+		render 'show'
+	end
+
 
 	def destroy
 		@room = Room.find(params[:room_id])
