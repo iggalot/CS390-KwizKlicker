@@ -23,7 +23,6 @@ class QuestionsController < ApplicationController
 	end
 
 
-
 	def destroy
 		@room = Room.find(params[:room_id])
 		@question = @room.questions.find(params[:id])
