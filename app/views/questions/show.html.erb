@@ -1,6 +1,6 @@
 <p>
 	<strong>Question</strong>
-	<%= @question.text %>
+	<%= @question.body %>
 </p>
 <br>
 
@@ -11,12 +11,22 @@
 	<%= form.label :answer %><br>
 	<%= form.text_field :answer %>
 </p>
+
+
+<p>
+	<%= form.label :representative %><br>
+	<%= form.text_field :representative %>
+</p>
+<p>
+	<%= form.submit %>
+</p>
+
 <% end %>
 
 
 
 
-<% @article.answers.each do |answer| %>
+<% @question.answers.each do |answer| %>
 <p>
 	<%= answer.representative %>
 	<%= answer.text %>
