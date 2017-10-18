@@ -6,7 +6,7 @@
 
 
 
-<%= form_with(model: [ @question, @question.answer.build ], local: true) do |form| %>
+<%= form_with(model: [ @question, @question.answers.build ], local: true) do |form| %>
 <p>
 	<%= form.label :answer %><br>
 	<%= form.text_field :answer %>
