@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :rooms
   root 'lobby#index'
   resources :rooms do
-  	resources :questions
+  	resources :questions do
+		resources :answers
+	end
   end
   scope '/rooms' do
   	post '/auth' => 'rooms#auth'
