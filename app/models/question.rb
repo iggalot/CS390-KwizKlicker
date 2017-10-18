@@ -1,4 +1,4 @@
 class Question < ApplicationRecord
    belongs_to :room
-	 has_many :answer
+	 has_many :answers
 end
