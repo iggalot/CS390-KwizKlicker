@@ -24,6 +24,7 @@ class QuestionsController < ApplicationController
 
 	def show
 		@question = Question.find(params[:id])
+		@room = Room.find(@question.room_id)
 		render 'show'
 	end
 

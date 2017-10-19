@@ -12,11 +12,6 @@
 	<%= form.text_field :text %>
 </p>
 
-
-<p>
-	<%= form.label :representative %><br>
-	<%= form.text_field :representative %>
-</p>
 <p>
 	<%= form.submit %>
 </p>
@@ -28,7 +23,6 @@
 
 <% @question.answers.each do |answer| %>
 <p>
-	<%= answer.representative %>
 	<%= answer.text %>
 </p>
 <% end %>
