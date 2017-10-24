@@ -5,10 +5,29 @@ class JoinRoomController < ApplicationController
     # render 'show'
   end
 
+  def default
+
+  end
+
   def create
     @info = StudentInfo.new(join_room_params)
-    @info.save
-    redirect_to @info
+   if @info.save
+    #redirect_to @info
+     render 'default'
+   else
+     render 'default'
+     end
+  end
+
+  def update
+    @info = StudentInfo.find(params[:id])
+
+    if @info.update(join_room_params)
+      #redirect_to @info
+      render 'default'
+    else
+      render 'default'
+    end
   end
 
   private
