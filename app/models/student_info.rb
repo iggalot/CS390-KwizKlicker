@@ -1,5 +1,5 @@
 class StudentInfo < ApplicationRecord
   validates :name, presence: true
   validates :room, presence: true,
-            length: 4
+            length: {is: 4}
 end
