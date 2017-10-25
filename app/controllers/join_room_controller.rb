@@ -15,7 +15,7 @@ class JoinRoomController < ApplicationController
     #redirect_to @info
      render 'default'
    else
-     render 'default'
+     render 'show'
      end
   end
 

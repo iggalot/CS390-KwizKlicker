@@ -18,6 +18,6 @@ Rails.application.routes.draw do
   #end
   resources :join_room
   scope '/join_room' do
-   post 'show' => 'join_room#show'
+   post 'show' => 'join_room#create'
     end
 end
