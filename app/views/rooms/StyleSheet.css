@@ -1,0 +1,156 @@
+body {
+    font-size: 30px;
+    font-family: Arial;
+    font-weight: lighter;
+    background-color: rgb(255, 215, 142);
+    margin-left: 150px;
+    border-color: black;
+    border-width: thick;
+    border-style: solid;
+    border-radius: 16px 24px;
+    text-decoration: none;
+    padding-left: 40px;
+    margin-top: 0px;
+    margin-right: 0px;
+    color: red;
+}
+
+.Goodlooking {
+    /*For texts*/
+    color: black;
+    font-size: 25px;
+    font-family: 'Segoe UI';
+    text-align: center;
+}
+
+.imagec {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#nicebox {
+    background-color: rgb(50, 60, 100);
+    font-family: 'Segoe UI';
+    color: white;
+    font-size: 24px;
+    padding: 10px;
+    margin-top: 0px;
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 30px 2px;
+    width: 80%;
+}
+
+b {
+    border: 5px dotted yellow;
+    font-size: 25px;
+}
+
+p:first-child {
+    font-style: italic;
+    font-weight: bolder;
+}
+
+li a {
+    text-decoration: none;
+    color: white;
+    font-family: Roboto, "Helvetica Neue", Helvetica, sans-serif;
+    padding-top: 0px;
+    padding: 40px;
+    font-size: medium;
+    padding-bottom: 29px;
+    border-radius: 40px;
+}
+
+li {
+    display: inline;
+}
+
+li a:hover {
+    background-color: rgb(85, 86, 21);
+}
+
+p a:visited {
+    color: black;
+}
+
+div:last-of-type {
+    font-size: 1.5em;
+}
+
+article {
+    width: 70vw;
+}
+
+#header {
+    /*That is mean the box will not disappear when we scroll down*/
+    position: fixed;
+    background-color: silver;
+    width: 90%;
+    height: 70px;
+    z-index: 10;
+    /* if z-index is positive ,then the other elements will go behind the box */
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 50px;
+    top: 0px;
+    right: 0px;
+    left: 180px;
+}
+
+.box {
+    border: solid 20px thin rgb(221, 10, 81);
+    width: 150px;
+    height: 400px;
+    display: inline-block;
+    border-top: 0px;
+}
+
+h4 {
+    font-size: medium;
+}
+
+#top {
+    display: inline;
+}
+
+.small_space {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.medium_space {
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+
+#bx{
+    cursor:pointer;
+    color:#fff;
+    box-shadow: 0 9px #999;
+}
+
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}

@@ -1,26 +1,38 @@
 <h1>KwizKlicker Lobby</h1>
 
 <p>
+  <div>
 	<strong>For Teachers: </strong><br>
 	<a href="/rooms/new" style="text-decoration: none">
-		<button>Create Room</button>
-	</a><br>
-	Add Questions<br>
-	Present Quiz<br>
-	<br>
+	  <button class="button">Create Room</button>
+	</a>
 
+  </div>
+
+  <br><br> <br><br>
+  
+  <div class="container">
+    <div class="card" style="width:400px">
+      <img class="card-img-top" src="img_avatar1.png" alt="Card image" style="width:100%">
+      <div class="card-body">
   <strong>For Students: </strong><br>
   <a href="/join_room/show" style="text-decoration: none">
-    <button>Join Existing Room</button>
+    <button class="button">Join Existing Room</button>
   </a>
-  <br>
-<br>
+       </div>
+  </div>
+</div>
+
+  <br><br>
+
 
 	<strong>Your rooms:</strong><br>
 	<% if session.has_key? :rooms %>
 		<% session[:rooms].each do |id| %>
-			<% unless id.nil? %>
-				<a href="/rooms/<%= id %>"><%= Room.find(id).name %></a><br>
+		<% unless id.nil? %>
+		<div>
+		  <a href="/rooms/<%= id %>"><%= Room.find(id).name %></a><br>
+		</div>
 			<% end %>
 		<% end %>
 	<% else %>

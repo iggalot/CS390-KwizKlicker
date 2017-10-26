@@ -1,3 +1,14 @@
+<html>
+  <head>
+<style type="text/css">  
+  html { height: 100% }  
+  body { height: 100%; margin: 0; padding: 0 }  
+  #map_canvas { height: 100% }   
+</style> 
+
+<%= stylesheet_link_tag 'application' %>
+  </head>
+  
 <h1>New Room</h1>
 
 <%= form_with scope: :room, url: rooms_path, local: true do |form| %>
@@ -28,7 +39,9 @@
 
 
 <p>
-	<%= form.submit %>
+	<%= form.submit "Create Room", :class => "button"%>
 </p>
 
 <% end %>
+ </body>
+</html>
