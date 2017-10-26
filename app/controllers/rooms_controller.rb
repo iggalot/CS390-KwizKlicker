@@ -50,7 +50,6 @@ class RoomsController < ApplicationController
 			end
 
 			session[:rooms].push(@room.id)
-			puts "Created a new room!"
 			redirect_to @room
 		else
 			render 'new'

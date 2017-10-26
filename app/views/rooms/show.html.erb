@@ -9,6 +9,7 @@
 <% @room.questions.each do |question| %>
 	<p>
 		<%= question.body %>
+		<%= link_to 'View', [question.room, question] %>
 	</p>
 	
 	<p>

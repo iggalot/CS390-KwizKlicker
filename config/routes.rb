@@ -10,5 +10,14 @@ Rails.application.routes.draw do
   scope '/rooms' do
   	post '/auth' => 'rooms#auth'
   end
+
+  #scope '/join_room' do
+   # post 'show' => 'join_room#show'
+    #get 'show' => 'join_room#show'
+    #path 'join_room_path' =>
+  #end
   resources :join_room
+  scope '/join_room' do
+   post 'show' => 'join_room#create'
+    end
 end

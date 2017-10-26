@@ -1,12 +1,12 @@
 <h1>Join Existing Room</h1>
 
-<%= form_with scope: :join_room, url: join_room_path, local: true do |form| %>
+<%= form_with scope: :join_room, local: true do |form| %>
 
 
 
     <p>
       <%= form.label "Room Code" %><br>
-      <%= form.text_field :name, placeholder: "put your room code here" %>
+      <%= form.text_field :room, placeholder: "put your room code here" %>
     </p>
 
     <p>
@@ -16,7 +16,8 @@
 
 
     <p>
-      <%= form.button 'Join Room', type:'submit' %> NOT FUNCTIONAL
+      <%= form.button 'Join Room', type:'submit' %>
     </p>
 
 <% end %>
+
