@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   resources :join_room
   scope '/join_room' do
    post 'show' => 'join_room#create'
+    get 'show' => 'join_room#show'
     end
 end

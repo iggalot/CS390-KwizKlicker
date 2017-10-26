@@ -8,6 +8,10 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <%= link_to "Home", root_path %>
+  <%= link_to "Create Room", new_room_path %>
+  <%= link_to "Join Room", show_path %>
+
   <body>
     <%= yield %>
   </body>

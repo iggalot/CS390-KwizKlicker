@@ -26,6 +26,13 @@ RSpec.describe JoinRoomController, type: :controller do
 
   #does the button take us to the quiz
   #does the username get saved
-    end
+  end
+
+  pending "launches the join room interface screen"
+  pending "The following expextations will all pass"
+  pending "Prompts user for a room code"
+  pending "Verifies the room code exists"
+  pending "Retrieves the room id from the database for a given room code"
+  pending "redirects users to room screen"
 
 end
