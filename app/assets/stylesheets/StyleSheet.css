@@ -5,7 +5,7 @@
 
 body {
     font-size: 30px;
-    font-family: Arial;
+    font-family: Homospace;
     font-weight: lighter;
     background-color: rgb(255, 215, 142);
     margin-left: 150px;
@@ -196,6 +196,8 @@ h4 {
 }
 
 .RoomItem{
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-decoration:none;
     font-size: 24px;
     font-family: Monospace;
@@ -223,4 +225,9 @@ li:hover{
 .roomList{
     background-color:rgb(255, 230, 200);
     border:solid 5px;
+}
+
+.roomListBorder{
+    border: 5px solid orange;
+    radius: 3px;
 }
