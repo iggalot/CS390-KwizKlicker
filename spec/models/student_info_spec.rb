@@ -3,11 +3,15 @@ require 'rails_helper'
 RSpec.describe StudentInfo, type: :model do
   describe "StudentInfo model instantiation tests" do
     newinfo = StudentInfo.new(:name=>"aaaa", :room=>"cccc")  #make a test room for model tests
-    it "successfully creates a new room name in model" do
+    it "creates a new room name in StudentInfo model" do
       expect(newinfo).to have_attributes(room: 'cccc')
     end
-    it "successfully creates a new username name in model" do
+    it "creates a new username in StudentInfo model" do
       expect(newinfo).to have_attributes(name: 'aaaa')
+    end
+
+    it "has a valid factory" do
+      FactoryBot.create(:student_info).valid?
     end
 
     #if model parameters are illegal tests here
