@@ -7,7 +7,7 @@ body {
     font-size: 30px;
     font-family: Homospace;
     font-weight: lighter;
-    background-color: rgb(255, 215, 142);
+    background-color: #1abc9c;
     margin-left: 150px;
     border-color: black;
     border-width: thick;
@@ -34,7 +34,7 @@ body {
 }
 
 #nicebox {
-    background-color: rgb(221, 160, 81);
+    background-color: #474e5d;
     font-family: 'Segoe UI';
     color: white;
     font-size: 24px;
@@ -228,6 +228,26 @@ li:hover{
 }
 
 .roomListBorder{
-    border: 5px solid orange;
+    background-color: #ffffff;
+    border: 5px solid black;
     radius: 3px;
+}
+
+.colors2{
+    background-color:rgb(255, 215, 142)
+}
+
+.Input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+Input:focus {
+    border: 3px solid #573311;
 }
