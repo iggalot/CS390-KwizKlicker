@@ -7,9 +7,11 @@
 
 <h2>Questions</h2>
 <% @room.questions.each do |question| %>
-	<p>
+
+ <div id="nicebox">
+	<p style="text-decoration:none">
 		<%= question.body %>
-		<%= link_to 'View', [question.room, question] %>
+		<%= link_to 'View', [question.room, question] ,:class => "button" %>
 	</p>
 	
 	<p>
@@ -17,8 +19,9 @@
 
 	<p>
 		<%= link_to 'Delete Question', [question.room, question],
-			method: :delete, data: { confirm: 'Are you sure?' } %>
+			method: :delete, data: { confirm: 'Are you sure?' } ,:class => "button" %>
 	</p>
+ </div>
 <% end %>
 
 <h2>Add a question:</h2>

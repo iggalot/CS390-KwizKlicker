@@ -13,7 +13,7 @@
 </p>
 
 <p>
-	<%= form.submit ,:class => "button"%>
+	<%= form.submit "Create Answer" ,:class => "button"%>
 </p>
 
 <% end %>
@@ -27,4 +27,4 @@
 </p>
 <% end %>
 
-<%= link_to 'Back', room_path(@room) %>
+<%= link_to 'Back', room_path(@room)  ,:class => "button2"%>

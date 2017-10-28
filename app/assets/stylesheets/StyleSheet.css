@@ -34,7 +34,7 @@ body {
 }
 
 #nicebox {
-    background-color: rgb(221, 10, 81);
+    background-color: rgb(221, 160, 81);
     font-family: 'Segoe UI';
     color: white;
     font-size: 24px;
@@ -44,7 +44,8 @@ body {
     border-style: solid;
     border-width: 3px;
     border-radius: 30px 2px;
-    width: 80%;
+    width: 60%;
+    margin-bottom: 40px;
 }
 
 b {
@@ -151,4 +152,75 @@ h4 {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
+}
+
+/*-------------*/
+.button2 {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button2 span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button2 span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button2:hover span {
+  padding-right: 25px;
+}
+
+.button2:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.RoomItem{
+    text-decoration:none;
+    font-size: 24px;
+    font-family: Monospace;
+}
+
+.RoomItem:hover{
+    background-color:orange;
+    padding-top: 0px;
+    padding-bottom: 0px; 
+    padding-right: 25px;
+    text-decoration:none;
+}
+
+.RoomItem:active{
+    background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+li:hover{
+    background-color:Orange;
+    padding-right: 25px;
+}
+
+.roomList{
+    background-color:rgb(255, 230, 200);
+    border:solid 5px;
 }
