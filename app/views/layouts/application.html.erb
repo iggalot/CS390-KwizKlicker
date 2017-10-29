@@ -1,6 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <style>
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      li {
+        float: left;
+      }
+
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      li a:hover {
+        background-color: #111;
+        color: white;
+        text-decoration: none;
+      }
+    </style>
+
     <title>Kwizklicker</title>
     <%= csrf_meta_tags %>
 
@@ -24,11 +52,12 @@
 
   </head>
 
-  <%= link_to "Home", root_path %>
-  <%= link_to "Create Room", new_room_path %>
-  <%= link_to "Join Room", show_path %>
-
   <body>
+  <ul style = "width: 100%">
+    <li><%= link_to "Home", root_path %></li>
+    <li><%= link_to "Create Room", new_room_path %></li>
+    <li><%= link_to "Join Room", show_path %></li>
+  </ul>
     <%= yield %>
   </body>
 </html>
