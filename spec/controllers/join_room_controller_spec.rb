@@ -1,31 +1,38 @@
 require 'rails_helper'
 
 RSpec.describe JoinRoomController, type: :controller do
+    describe "GET join room interface" do
+      it "launches the join room interface screen successfully" do
+        assert_response :success, action: 'show'
+      end
 
-  describe "Room code tests" do
-  #was a room code entered?
-    it "get a room code" do
-    #render_views.should have_selector("input", :type => "text", :name => "student[name]", :value => "" )
-    end
-  #is the room code valid
-  #does it exist
-  #is it 4 characters long
-  #is the room open???
     end
 
-  describe "Username tests" do
+    describe "Submit Button tests" do
+      #context "submit button will not function if..." do
+      # it "-- room code tests do not pass" do
+      #    expect(1).to eq(2)
+      #  end
+      #  it "-- user name tests do not all pass" do
+      #    expect(1).to eq(2)
+      #  end
+      #end
+
+      #context "submit button will function if ..." do
+
+      #end
+
+      # does the form information get saved?
+      # does the username and room name get saved to the database
 
 
-  #was a username entered
-  #is the username taken in the room?
-  #test min length
-  #max length 6-20?
+      it "clicking submit button on invalid input reloads current page and returns http success" do
+        assert_response :success, controller: 'join_room', action: 'show'
+      end
+
+      # does the button take us to the quiz room?
+      it "clicking submit button on valid input launches the quiz room" do
+        assert_response :success, controller: 'join_room', action: 'default'
+      end
     end
-
-  describe "Submit tests" do
-
-  #does the button take us to the quiz
-  #does the username get saved
-    end
-
 end

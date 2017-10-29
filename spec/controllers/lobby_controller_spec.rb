@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'capybara/rspec'
 
 RSpec.describe LobbyController, type: :controller do
 
@@ -11,26 +12,20 @@ RSpec.describe LobbyController, type: :controller do
 
   describe "Click Join" do
 		it "returns http success" do
-			get :index
-			expect(response).to have_http_status(:success)
-		end
-	pending "launches the join room interface screen"
-	pending "The following expextations will all pass"
-	pending "Prompts user for a room code"
-	pending "Verifies the room code exists"
-	pending "Retrieves the room id from the database for a given room code"
-	pending "redirects users to room screen"
+      assert_response :success, controller: 'join_room', action: 'show'
+    end
+    #it "click join button success" do
+      #@result = find("Join Existing Room").find("button").click
+			#assert_response :success,
+      #click_button "Join Existing Room"
+    #end
+
   end
 
   describe "Click Create" do
-	pending "returns http success for create room screen"
-	pending "launches the create room interface screen"
-	pending "creates a room entry in the database"
-	pending "creates a unique room identifier"
-	pending "doesnt allow duplicate rooms to exist"
-  	pending "asks for teacher id?"
-  	pending "verifies teacher id is unique in database"
-	pending "verifies that a teacher isn't already assigned to a room"
-	pending "enters valid room identifier label?"
-  end
+		it "returns http success for create room screen" do
+			assert_response :success, controller: 'rooms', action: 'new'
+		end
+
+	end
 end
