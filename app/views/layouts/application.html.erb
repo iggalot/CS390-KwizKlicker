@@ -22,11 +22,16 @@
         text-decoration: none;
       }
 
+
       li a:hover {
-        background-color: #111;
+        background-color: black;
         color: white;
         text-decoration: none;
       }
+      .NVelements:hover {
+        background: #111;
+      }
+
     </style>
 
     <title>Kwizklicker</title>
@@ -54,9 +59,9 @@
 
   <body>
   <ul style = "width: 100%">
-    <li><%= link_to "Home", root_path %></li>
-    <li><%= link_to "Create Room", new_room_path %></li>
-    <li><%= link_to "Join Room", show_path %></li>
+    <li class= "NVelements"><%= link_to "Home", root_path, :class=> "NVelements" %></li>
+    <li class= "NVelements"><%= link_to "Create Room", new_room_path, :class=> "NVelements" %></li>
+    <li class= "NVelements"><%= link_to "Join Room", show_path, :class=> "NVelements" %></li>
   </ul>
     <%= yield %>
   </body>
