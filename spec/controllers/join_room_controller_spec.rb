@@ -9,27 +9,24 @@ RSpec.describe JoinRoomController, type: :controller do
     end
 
     describe "Submit Button tests" do
-      #context "submit button will not function if..." do
-      # it "-- room code tests do not pass" do
-      #    expect(1).to eq(2)
-      #  end
-      #  it "-- user name tests do not all pass" do
-      #    expect(1).to eq(2)
-      #  end
-      #end
+      # CREATE writes to StudentInfo table successfully
+      # Does not allow duplicate name / room combo in same room?
+      # Requires that the room exists in the Rooms database
+      # Returns to SHOW page if room does not already exists
+      # --- show error message
+      # Returns to SHOW if user name is invalid
+      # --- show error message
 
-      #context "submit button will function if ..." do
+      # Jumping directly to a specific
 
-      #end
 
-      # does the form information get saved?
-      # does the username and room name get saved to the database
 
 
       it "clicking submit button on invalid input reloads current page and returns http success" do
         assert_response :success, controller: 'join_room', action: 'show'
       end
 
+      # Upon successful submit CREATE redirects to DEFAULT page
       # does the button take us to the quiz room?
       it "clicking submit button on valid input launches the quiz room" do
         assert_response :success, controller: 'join_room', action: 'default'
