@@ -1,6 +1,77 @@
 require 'rails_helper'
 
 RSpec.describe Room, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
-  # is the room activated???
+  describe "Room model instantiation tests" do
+    it "has a valid factory" do
+      expect(FactoryBot.create(:room)).to be_valid
+    end
+    it "is invalid without a room name" do
+      expect(FactoryBot.build(:room, name: nil)).to be_invalid
+    end
+    it "is invalid without a password" do
+      expect(FactoryBot.build(:room, password: nil)).to be_invalid
+    end
+    it "is invalid without a roomcode" do
+      expect(FactoryBot.build(:room, roomcode: nil)).to be_invalid
+    end
+
+    context "attribute existence tests" do
+      newinfo = FactoryBot.create(:room, name: "aaaa", password: "password", roomcode: "cccc") #make a test room for model tests
+      it "creates a new room name in Room model" do
+        expect(newinfo).to have_attributes(name: 'aaaa')
+      end
+      it "creates a new username in Room model" do
+        expect(newinfo).to have_attributes(password: 'password')
+      end
+      it "creates a new roomcode in Room model" do
+        expect(newinfo).to have_attributes(roomcode: 'cccc')
+      end
+    end
+  end
+
+  describe "Room name field tests" do
+    #was a room code entered?
+    it "does not accept a room name field that is blank" do
+      expect(Room.new(:name=>"", :password=>"password", :roomcode=>"cccc")).to be_invalid
+    end
+  end
+
+  describe "Roomcode tests" do
+    it "does not accept a roomcode that is blank" do
+      expect(Room.new(:name=>"", :password=>"password", :roomcode=>"")).to be_invalid
+    end
+    it "does not accept room code that is more than 4 characters long" do
+      expect(Room.new(:name=>"aaaa", :password=>"password", :roomcode=>"ccccccccccccc")).to be_invalid
+    end
+    it "does not accept room code that is less than 4 characters long" do
+      expect(Room.new(:name=>"aaaa", :password=>"password", :roomcode=>"c")).to be_invalid
+    end
+
+    # other possible tests to include:
+    # ===============================================
+    # is the room code valid (in the StudentInfo database)
+    # does it exist in the Room database
+    # is the correct room id retrieved from the database for a given room code
+  end
+
+  describe "Pasword validation tests" do
+    it "does not accept a password that is blank" do
+      expect(Room.new(:name=>"", :password=>"", :roomcode=>"cccc")).to be_invalid
+    end
+    it "does not accept a roomcode that is more than 8 characters" do
+      expect(Room.new(:name=>"", :password=>"passwordabc", :roomcode=>"cccc")).to be_invalid
+    end
+    it "does not accept a roomcode that is less than 8 characters" do
+      expect(Room.new(:name=>"", :password=>"p", :roomcode=>"cccc")).to be_invalid
+    end
+
+    # other possible tests to include:
+    # ===============================================
+    # -- invalid chars?
+    # -- duplicate passwords in database?  is this allowed?
+    # -- duplicate room names in database?
+  end
+
+  #is room activated
+
 end
