@@ -63,6 +63,6 @@ class RoomsController < ApplicationController
 		end
 
 		def generate_roomcode
-			return [*('a'..'z')].sample(4).join
+			return [*('A'..'Z')].sample(4).join
 		end
 end

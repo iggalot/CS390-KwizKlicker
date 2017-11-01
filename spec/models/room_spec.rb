@@ -46,7 +46,15 @@ RSpec.describe Room, type: :model do
     it "does not accept room code that is less than 4 characters long" do
       expect(Room.new(:name=>"aaaa", :password=>"password", :roomcode=>"c")).to be_invalid
     end
-
+    it "does not accept room code that includes a number" do
+      expect(Room.new(:name=>"aaaa", :password=>"password", :roomcode=>"c2fA")).to be_invalid
+    end
+    it "does not accept room code that is 4 special characters" do
+      expect(Room.new(:name=>"aaaa", :password=>"password", :roomcode=>"!@%$")).to be_invalid
+    end
+    it "accepts room code is 4 capital letters" do
+      expect(Room.new(:name=>"aaaa", :password=>"password", :roomcode=>"AAAA")).to be_valid
+    end
     # other possible tests to include:
     # ===============================================
     # is the room code valid (in the StudentInfo database)

@@ -41,11 +41,44 @@ RSpec.describe StudentInfo, type: :model do
       expect(StudentInfo.new(:name=>"aaaa", :room=>"ccccccccccccc")).to be_invalid
     end
 
+    it "accepts room code that is 4 letters" do
+      expect(StudentInfo.new(:name=>"aaaa", :room=>"c3cc")).to be_invalid
+    end
+    #it "roomcode converted to uppercase letters" do
+      #@info = FactoryBot.create(:student_info, :name => "test", :room => "aaaa")
+      #printf(@info.room)
+      #expect(@info.room).to eq ("AAAA")
+    #end
+    it "does not accept room code that is 4 special characters" do
+      expect(StudentInfo.new(:name=>"aaaa", :room=>"!@$%")).to be_invalid
+    end
+    it "accept room code that is 4 capital letter" do
+      expect(StudentInfo.new(:name=>"aaaa", :room=>"ASDF")).to be_valid
+    end
+
     # other possible tests to include:
     # ===============================================
     # is the room code valid (in the StudentInfo database)
+    context "Testing database lookups"  do
+
+    it "accepts a roomcode that exists in the rooms database" do
+      @room1 = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
+      @info1 = StudentInfo.create(:name=>"student", :room=>"AAAA")
+
+      expect(Room.find_by_roomcode(@info1.room)).to be_valid
+    end
+    it "does not accepts a roomcode that doesn't exist in the rooms database" do
+      @room1 = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
+      @info1 = StudentInfo.create(:name=>"student", :room=>"AAAA")
+
+      expect(Room.find_by_roomcode("ZZZZ")).to be_nil
+    end
+
+  end
+
     # does it exist in the Room database
     # is the correct room id retrieved from the database for a given room code
+
   end
 
   describe "Username field tests" do

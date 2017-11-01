@@ -4,5 +4,5 @@ class Room < ApplicationRecord
 	validates :password, presence: true,
 						length: { minimum: 2 }
 	validates :roomcode, presence: true,
-						length: {is: 4}
+						length: {is: 4} , format: { with: /\A[a-zA-Z]+\z/}
 end
