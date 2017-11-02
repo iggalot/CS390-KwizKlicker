@@ -61,20 +61,26 @@ RSpec.describe StudentInfo, type: :model do
     # is the room code valid (in the StudentInfo database)
     context "Testing database lookups"  do
 
-    it "accepts a roomcode that exists in the rooms database" do
-      @room1 = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
-      @info1 = StudentInfo.create(:name=>"student", :room=>"AAAA")
+      it "accepts a roomcode that exists in the rooms database" do
+        @room1 = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
+        @info1 = StudentInfo.create(:name=>"student", :room=>"AAAA")
 
-      expect(Room.find_by_roomcode(@info1.room)).to be_valid
+        expect(Room.find_by_roomcode(@info1.room)).to be_valid
+      end
+      it "accepts a roomcode that exists in the rooms database" do
+        @room1 = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
+       expect(StudentInfo.create(:name=>"student", :room=>"AAAA")).to be_valid
+
+        #expect(Room.find_by_roomcode("ZZZZ")).to be_nil
+      end
+      #it "does not accepts a roomcode that doesn't exists in the rooms database" do
+        #@room1 = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
+        #expect(StudentInfo.create(:name=>"student", :room=>"ABCD")).to be_invalid
+      #end
+
     end
-    it "does not accepts a roomcode that doesn't exist in the rooms database" do
-      @room1 = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
-      @info1 = StudentInfo.create(:name=>"student", :room=>"AAAA")
 
-      expect(Room.find_by_roomcode("ZZZZ")).to be_nil
-    end
 
-  end
 
     # does it exist in the Room database
     # is the correct room id retrieved from the database for a given room code
