@@ -32,4 +32,16 @@ RSpec.describe JoinRoomController, type: :controller do
         assert_response :success, controller: 'join_room', action: 'default'
       end
     end
+
+    describe "delete tests" do
+      it "a room is created and deleted" do
+        @room1 = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
+        @info1 = StudentInfo.create(:name=>"student", :room=>"AAAA")
+
+        @info1.destroy
+
+        expect(@info).to be_nil
+        expect(@room1).not_to be_nil
+      end
+    end
 end
