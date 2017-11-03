@@ -42,7 +42,9 @@ class RoomsController < ApplicationController
 
 	def create
 		pwd = Password.pronounceable 8
-		@room = Room.new(room_params.merge(:password=>pwd))
+		code = generate_roomcode
+
+		@room = Room.new(room_params.merge(:password=>pwd, :roomcode=>code))
 			
 		if @room.save
 			if not session.has_key?(:rooms)
@@ -59,5 +61,15 @@ class RoomsController < ApplicationController
 	private
 		def room_params
 			params.require(:room).permit(:name)
+		end
+
+		def generate_roomcode
+			@code = [*('A'..'Z')].sample(4).join
+			while (Room.find_by_roomcode (@code).present?)
+				@code = [*('A'..'Z')].sample(4).join
+			end
+
+			return @code
+
 		end
 end

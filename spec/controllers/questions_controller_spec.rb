@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe QuestionsController, type: :controller do
 	describe "POST #create" do
 		before(:all) do
-			Room.create(name: "a good room i guess", password: "passwords") 
+			Room.create(name: "a good room i guess", password: "passwords", roomcode:"aaaa")
 			@id = Room.last.id
 		end
 		it 'puts a question in a room' do

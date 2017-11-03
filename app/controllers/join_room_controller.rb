@@ -15,6 +15,17 @@ class JoinRoomController < ApplicationController
       #redirect_to @info
       render 'default'
     else
+      if (@info.name.blank?)
+        flash[:name] = "Name can't be blank"
+      end
+
+      if (@info.room.blank?)
+        flash[:room] = "Roomcode can't be blank"
+
+        else if (@info.room.length != 4)
+          flash[:room] = "Roomcode must be 4 letters"
+          end
+      end
       render 'show'
     end
   end
