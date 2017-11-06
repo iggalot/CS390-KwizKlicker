@@ -7,11 +7,12 @@ class AnswersController < ApplicationController
 	end
 
 
-
 	def destroy
 		@question = Question.find(params[:question_id])
-		@answer = @question.answer.find(params[:id])
+		@answer = @question.answers.find(params[:id])
+		@room = Room.find(@question.room_id)
 		@answer.destroy
+		redirect_to room_question_path(@room, @question)
 	end
 
 
