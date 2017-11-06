@@ -15,7 +15,7 @@ RSpec.describe StudentInfo, type: :model do
     context "attribute existence tests" do
       newinfo = FactoryBot.create(:student_info, name: "aaaa", room: "cccc") #make a test room for model tests
       it "creates a new room name in StudentInfo model" do
-        expect(newinfo).to have_attributes(room: 'cccc')
+        expect(newinfo).to have_attributes(room: 'CCCC')
       end
       it "creates a new username in StudentInfo model" do
         expect(newinfo).to have_attributes(name: 'aaaa')
@@ -44,11 +44,12 @@ RSpec.describe StudentInfo, type: :model do
     it "accepts room code that is 4 letters" do
       expect(StudentInfo.new(:name=>"aaaa", :room=>"c3cc")).to be_invalid
     end
-    #it "roomcode converted to uppercase letters" do
-      #@info = FactoryBot.create(:student_info, :name => "test", :room => "aaaa")
-      #printf(@info.room)
-      #expect(@info.room).to eq ("AAAA")
-    #end
+    it "roomcode converted to uppercase letters" do
+      @room = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
+      @info = FactoryBot.create(:student_info, :name => "test", :room => "aaaa")
+      expect(@info.room).to eq ("AAAA")
+      @info.destroy
+    end
     it "does not accept room code that is 4 special characters" do
       expect(StudentInfo.new(:name=>"aaaa", :room=>"!@$%")).to be_invalid
     end
@@ -67,16 +68,11 @@ RSpec.describe StudentInfo, type: :model do
 
         expect(Room.find_by_roomcode(@info1.room)).to be_valid
       end
-      it "accepts a roomcode that exists in the rooms database" do
+      it "does not accepts a roomcode that doesn't exists in the rooms database" do
         @room1 = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
-       expect(StudentInfo.create(:name=>"student", :room=>"AAAA")).to be_valid
-
-        #expect(Room.find_by_roomcode("ZZZZ")).to be_nil
+        @info1 = StudentInfo.create(:name=>"student", :room=>"QWER")
+        expect(StudentInfo.find_by_room("ABCD")).to be_nil
       end
-      #it "does not accepts a roomcode that doesn't exists in the rooms database" do
-        #@room1 = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
-        #expect(StudentInfo.create(:name=>"student", :room=>"ABCD")).to be_invalid
-      #end
 
     end
 
@@ -103,4 +99,5 @@ RSpec.describe StudentInfo, type: :model do
     # is the username longer than the minimum length
     # is the username shorter than the maximum length?
   end
+
 end
