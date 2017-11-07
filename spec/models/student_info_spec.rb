@@ -78,7 +78,6 @@ RSpec.describe StudentInfo, type: :model do
 
 
 
-    # does it exist in the Room database
     # is the correct room id retrieved from the database for a given room code
 
   end
@@ -93,9 +92,40 @@ RSpec.describe StudentInfo, type: :model do
       expect(StudentInfo.new(:name=>"aaaa", :room=>"cdef")).to be_valid
     end
 
+    it "accepts 2 different usernames in the same room" do
+      @student = StudentInfo.create(:name=>"name1", :room=>"cdef")
+      @student2 = StudentInfo.create(:name=>"name2", :room=>"cdef")
+      expect(@student).to be_valid
+      expect(@student2).to be_valid
+      @student.destroy
+      @student2.destroy
+    end
+    it "does not accept 2 usernames that are the same in the same room" do
+      @student = StudentInfo.create(:name=>"name1", :room=>"cdef")
+      @student2 = StudentInfo.create(:name=>"name1", :room=>"cdef")
+      expect(@student).to_not be_valid
+      expect(@student2).to be_invalid
+      @student.destroy
+      @student2.destroy
+    end
+    it "accepts 2 different usernames in different rooms" do
+      @student = StudentInfo.create(:name=>"name1", :room=>"cdef")
+      @student2 = StudentInfo.create(:name=>"name2", :room=>"cdbn")
+      expect(@student).to be_valid
+      expect(@student2).to be_valid
+      @student.destroy
+      @student2.destroy
+    end
+    it "accepts 2 usernames that are the same in different rooms" do
+      @student = StudentInfo.create(:name=>"name1", :room=>"cdef")
+      @student2 = StudentInfo.create(:name=>"name1", :room=>"cdbn")
+      expect(@student).to be_valid
+      expect(@student2).to be_valid
+      @student.destroy
+      @student2.destroy
+    end
     # other possible tests to include:
     # =============================================
-    # does the username already exist in the room?
     # is the username longer than the minimum length
     # is the username shorter than the maximum length?
   end

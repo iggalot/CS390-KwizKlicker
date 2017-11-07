@@ -12,11 +12,15 @@ class JoinRoomController < ApplicationController
 
   def create
     @info = StudentInfo.new(join_room_params)
+    @infocount = (StudentInfo.where(:name=>@info.name, :room=>@info.room.upcase!)).count
 
-    if Room.find_by_roomcode(@info.room).present? && @info.save
-      render 'default'
+    #if @infocount.eql?(0)
+      if (Room.find_by_roomcode(@info.room.upcase!).present? && @info.save)
+        render 'default'
+      #end
     else
 
+=begin
       if (@info.name.blank?)
         flash[:name] = "Name can't be blank"
       end
@@ -31,6 +35,7 @@ class JoinRoomController < ApplicationController
                   #flash[:room] = "Invalid roomcode"
 
       end
+=end
       render 'show'
     end
   end
