@@ -5,6 +5,27 @@ class RoomsController < ApplicationController
 		@room = Room.new
 	end
 
+    def get_quiz_question
+        @room = Room.find(params[:id])
+        @qid = params[:question_id]
+        @question = @room.questions[params[:question_id].to_i - 1]
+
+        render 'quiz_question'
+    end
+
+    def post_quiz_question
+        @room = Room.find(params[:id])
+        @question = @room.questions[params[:question_id].to_i - 1]
+
+        render 'quiz'  
+    end
+
+    def quiz
+        @room = Room.find(params[:id])
+        
+        render 'quiz'
+    end
+
 	def show
 		@room = Room.find(params[:id])
 
@@ -25,12 +46,10 @@ class RoomsController < ApplicationController
 
 	def auth
 		@room = Room.find(params[:id])
-		
 		if params[:password] == @room.password
 			if not session.has_key?(:rooms)
 				session[:rooms] = []
 			end
-
 			session[:rooms].push(@room.id.to_i)
 			redirect_to @room
 		else
@@ -39,7 +58,6 @@ class RoomsController < ApplicationController
 		end
 	end
 		
-
 	def create
 		pwd = Password.pronounceable 8
 		code = generate_roomcode
