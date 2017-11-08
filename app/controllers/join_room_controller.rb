@@ -11,13 +11,17 @@ class JoinRoomController < ApplicationController
 
 
   def create
-    @info = StudentInfo.new(join_room_params)
-    @infocount = (StudentInfo.where(:name=>@info.name, :room=>@info.room.upcase!)).count
-
-    #if @infocount.eql?(0)
-      if (Room.find_by_roomcode(@info.room.upcase!).present? && @info.save)
+    printf("HIIIIIIIIIIII!!!!!!!!!!!")
+    @counter = Room.find_by_roomcode(:roomcode.upcase)
+    puts( @counter.id)
+    if (Room.find_by_roomcode(:roomcode.upcase).present?)
+      @room = Room.find_by_roomcode(:roomcode.upcase)
+      @info = @room.student_infos.new(join_room_params)
+      if (@info.save)
+    #@info = StudentInfo.new(join_room_params)
+    #if (Room.find_by_roomcode(@info.room.upcase!).present? && @info.save)
         render 'default'
-      #end
+        end
     else
 
 =begin
@@ -57,6 +61,6 @@ class JoinRoomController < ApplicationController
 
   private
   def join_room_params
-    params.require(:join_room).permit(:name, :room)
+    params.require(:join_room).permit(:name, :roomcode)
   end
 end

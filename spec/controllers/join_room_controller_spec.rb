@@ -36,7 +36,7 @@ RSpec.describe JoinRoomController, type: :controller do
     describe "delete tests" do
       it "a room is created and deleted" do
         @room1 = Room.create(:name=>"test", :password=>"password", :roomcode=>"AAAA")
-        @info1 = StudentInfo.create(:name=>"student", :room=>"AAAA")
+        @info1 = StudentInfo.create(:name=>"student", :roomcode=>"AAAA")
 
         @info1.destroy
 

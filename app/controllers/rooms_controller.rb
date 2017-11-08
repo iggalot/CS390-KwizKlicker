@@ -58,6 +58,11 @@ class RoomsController < ApplicationController
 		end
 	end
 
+	def destroy
+		@room.find(params[:id])
+		@room.destroy
+	end
+
 	private
 		def room_params
 			params.require(:room).permit(:name)
