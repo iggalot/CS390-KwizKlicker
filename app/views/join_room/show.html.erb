@@ -1,5 +1,9 @@
 <h1>Join Existing Room</h1>
 
+<% flash.each do |k, v| %>
+    <p><%= v %></p>
+<% end %>
+
 <%= form_with scope: :join_room, local: true do |form| %>
 
 

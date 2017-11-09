@@ -8,7 +8,7 @@
 
 <%= form_for([@room, @question, @question.answers.build]) do |form| %>
 <p>
-	<%= form.label :text %><br>
+	<%= form.label :answers %><br>
 	<%= form.text_field :text %>
 </p>
 
@@ -21,9 +21,10 @@
 
 
 
-<% @question.answers.each do |answer| %>
+<% @question.answers.each do |each| %>
 <p>
-	<%= answer.text %>
+	<%=  each.text %>
+	
 </p>
 <% end %>
 

@@ -43,6 +43,7 @@ class RoomsController < ApplicationController
 	def create
 		pwd = Password.pronounceable 8
 		code = generate_roomcode
+
 		@room = Room.new(room_params.merge(:password=>pwd, :roomcode=>code))
 			
 		if @room.save
@@ -63,6 +64,12 @@ class RoomsController < ApplicationController
 		end
 
 		def generate_roomcode
-			return [*('A'..'Z')].sample(4).join
+			@code = [*('A'..'Z')].sample(4).join
+			while (Room.find_by_roomcode (@code).present?)
+				@code = [*('A'..'Z')].sample(4).join
+			end
+
+			return @code
+
 		end
 end

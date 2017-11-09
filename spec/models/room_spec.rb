@@ -78,8 +78,25 @@ RSpec.describe Room, type: :model do
     # -- invalid chars?
     # -- duplicate passwords in database?  is this allowed?
     # -- duplicate room names in database?
+
+    it "does not accept a roomcode that is already in the database" do
+      @test = Room.create(:name=>"test")
+
+      expect(Room.create(:name=>"test2", :password=>"p2", :roomcode=>@test.roomcode)).to be_invalid
+    end
   end
 
   #is room activated
+	describe "Rooms can be properly deleted" do
+		it "Makes a room and then deletes it" do
+			@deleteroom = Room.create(name: "delete me", password: "deletingtime", roomcode: "lptp")
+			expect{
+				@deleteroom.destroy
+			}.to change{Room.all.count}.by(-1)
+		end
+	end
+
+
+
 
 end
