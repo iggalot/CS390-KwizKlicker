@@ -26,10 +26,10 @@
  </div>
 <% end %>
 
-<h2>Add a question:</h2>
+<h2>Add a question:</h2><br>
 <%= form_with(model: [ @room, @room.questions.build], local: true) do |form| %>
 	<p>
-		<%= form.label :body %><r>
+		<%= form.label :question %><r>
 		<%= form.text_field :body %>
 	</p>
 	<p>

@@ -19,7 +19,7 @@ class AnswersController < ApplicationController
 
 	private
 		def answer_params
-			params.require(:answer).permit(:text, :representative)
+			params.require(:answer).permit(:text)
 		end
 
 end

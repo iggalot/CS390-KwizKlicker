@@ -87,5 +87,16 @@ RSpec.describe Room, type: :model do
   end
 
   #is room activated
+	describe "Rooms can be properly deleted" do
+		it "Makes a room and then deletes it" do
+			@deleteroom = Room.create(name: "delete me", password: "deletingtime", roomcode: "lptp")
+			expect{
+				@deleteroom.destroy
+			}.to change{Room.all.count}.by(-1)
+		end
+	end
+
+
+
 
 end
