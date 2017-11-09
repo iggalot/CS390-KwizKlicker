@@ -13,9 +13,6 @@ RSpec.describe RoomsController, type: :controller do
 		end
   end
 
-	pending "launches the create room interface screen"
-	pending "creates a room entry in the database"
-	pending "creates a unique room identifier"
 	pending "doesnt allow duplicate rooms to exist"
 	pending "asks for teacher id?"
 	pending "verifies teacher id is unique in database"
