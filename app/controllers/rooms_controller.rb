@@ -15,13 +15,13 @@ class RoomsController < ApplicationController
     def post_quiz_question
         @room = Room.find(params[:id])
         @question = @room.questions[params[:question_id].to_i - 1]
-
+				
         redirect_to '/rooms/quiz/' + @room.id.to_s
     end
 
     def quiz
         @room = Room.find(params[:id])
-        
+
         render 'quiz'
     end
 

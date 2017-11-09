@@ -1,6 +1,6 @@
 <form method="post" style="margin: 50px;">
 <% @question.answers.each.with_index do |answer, idx| %>
-    <input type="radio" name="response" value="<%= idx %>" /> <%= answer.text %> <br>
+    <input type="radio" name="response" value="<%= idx %>" id="option<%= idx %>" /> <%= answer.text %> <br>
 <% end %>
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
     <button>Submit</button>
