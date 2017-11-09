@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108203043) do
+ActiveRecord::Schema.define(version: 20171109170016) do
 
   create_table "answers", force: :cascade do |t|
     t.text "text"
@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 20171108203043) do
     t.string "roomcode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "rooms_id"
-    t.index ["rooms_id"], name: "index_student_infos_on_rooms_id"
+    t.integer "room_id"
+    t.index ["room_id"], name: "index_student_infos_on_room_id"
   end
 
 end

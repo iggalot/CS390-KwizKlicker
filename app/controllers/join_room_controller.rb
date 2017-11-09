@@ -12,14 +12,18 @@ class JoinRoomController < ApplicationController
 
   def create
     printf("HIIIIIIIIIIII!!!!!!!!!!!")
-    @counter = Room.find_by_roomcode(:roomcode.upcase)
-    puts( @counter.id)
-    if (Room.find_by_roomcode(:roomcode.upcase).present?)
-      @room = Room.find_by_roomcode(:roomcode.upcase)
-      @info = @room.student_infos.new(join_room_params)
-      if (@info.save)
-    #@info = StudentInfo.new(join_room_params)
-    #if (Room.find_by_roomcode(@info.room.upcase!).present? && @info.save)
+
+    @info = StudentInfo.new(join_room_params)
+    #@room = Room.find_by_roomcode(@info.roomcode)
+    #@info2 = @room.student_infos.create(join_room_params)
+
+    if (Room.find_by_roomcode(@info.roomcode.upcase).present?)
+      #@counter = Room.find_by_roomcode(@info.roomcode)
+      @room = Room.find_by_roomcode(@info.roomcode.upcase)
+      @info2 = @room.student_infos.create(join_room_params)
+      if (@info2.save)
+        #@info = StudentInfo.new(join_room_params)
+        #if (Room.find_by_roomcode(@info.room.upcase!).present? && @info.save)
         render 'default'
         end
     else

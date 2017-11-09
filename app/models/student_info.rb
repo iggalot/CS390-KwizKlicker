@@ -1,5 +1,5 @@
 class StudentInfo < ApplicationRecord
-  belongs_to :rooms
+  belongs_to :room
   validates :name, presence: true
   validates :roomcode, presence: true,
             length: {is: 4}, format: { with: /\A[a-zA-Z]+\z/}
