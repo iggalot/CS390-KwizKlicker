@@ -12,13 +12,14 @@ class AnswersController < ApplicationController
 		@question = Question.find(params[:question_id])
 		@answer = @question.answer.find(params[:id])
 		@answer.destroy
+		redirect_to question_path(@question)
 	end
 
 
 
 	private
 		def answer_params
-			params.require(:answer).permit(:text, :representative)
+			params.require(:answer).permit(:text)
 		end
 
 end

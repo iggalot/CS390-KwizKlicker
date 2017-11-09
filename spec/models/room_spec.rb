@@ -88,4 +88,10 @@ RSpec.describe Room, type: :model do
 
   #is room activated
 
+
+
+
+
+
+
 end
