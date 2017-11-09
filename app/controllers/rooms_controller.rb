@@ -13,14 +13,31 @@ class RoomsController < ApplicationController
     end
 
     def post_quiz_question
-        @room = Room.find(params[:id])
+
+			@room = Room.find(params[:id])
+
+			unless session.has_key? :username
+					redirect_to '/rooms/quiz/' + @room.id.to_s
+					return
+				end
+
         @question = @room.questions[params[:question_id].to_i - 1]
-				
+				@res = Response.create(question_id: @question.id, answeridx: params[:response].to_i, username: session[:username])
+
         redirect_to '/rooms/quiz/' + @room.id.to_s
     end
 
     def quiz
         @room = Room.find(params[:id])
+				@username = session[:username]
+
+				# find most recent response
+				@last_res = Response.find_by_username(@username)
+				@has_res = @last_res.present?
+
+				if @has_res
+					@last_res_text = Question.find_by_id(@last_res.question_id).answers[@last_res.answeridx].text
+				end
 
         render 'quiz'
     end
