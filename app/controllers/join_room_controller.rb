@@ -16,7 +16,6 @@ class JoinRoomController < ApplicationController
     @room = Room.find_by_roomcode(@info.room.upcase)
     #if @infocount.eql?(0)
       if (@room.present? && @info.save)
-        # we want to set their username
         session[:username] = @info.name
         session[:romcode] = @info.room.upcase
         redirect_to '/rooms/quiz/' + @room.id.to_s
