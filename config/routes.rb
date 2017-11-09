@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   end
   scope '/rooms' do
   	post '/auth' => 'rooms#auth'
+    get '/quiz/:id' => 'rooms#quiz'
+    get '/quiz/:id/question/:question_id' => 'rooms#get_quiz_question'
+    post '/quiz/:id/question/:question_id' => 'rooms#post_quiz_question'
   end
 
   #scope '/join_room' do

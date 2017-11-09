@@ -7,7 +7,6 @@ class RoomsController < ApplicationController
 
     def get_quiz_question
         @room = Room.find(params[:id])
-        @qid = params[:question_id]
         @question = @room.questions[params[:question_id].to_i - 1]
 
         render 'quiz_question'
@@ -17,7 +16,7 @@ class RoomsController < ApplicationController
         @room = Room.find(params[:id])
         @question = @room.questions[params[:question_id].to_i - 1]
 
-        render 'quiz'  
+        redirect_to '/rooms/quiz/' + @room.id.to_s
     end
 
     def quiz
