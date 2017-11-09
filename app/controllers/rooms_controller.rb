@@ -21,6 +21,7 @@ class RoomsController < ApplicationController
 					return
 				end
 
+
         @question = @room.questions[params[:question_id].to_i - 1]
 				@res = Response.create(question_id: @question.id, answeridx: params[:response].to_i, username: session[:username])
 
@@ -32,7 +33,7 @@ class RoomsController < ApplicationController
 				@username = session[:username]
 
 				# find most recent response
-				@last_res = Response.find_by_username(@username)
+				@last_res = Response.order("created_at DESC").find_by_username(@username)
 				@has_res = @last_res.present?
 
 				if @has_res

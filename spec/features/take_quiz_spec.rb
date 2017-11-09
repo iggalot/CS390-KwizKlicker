@@ -26,14 +26,19 @@ feature "Take Quiz" do
    end
 
    scenario "student submits a response" do
-        expect {
-          @room = Room.create(name: "Asdf", password: "passw", roomcode: "ABCD")
-          @question = Question.create(body: "something", room_id: @room.id)
-          Answer.create(text: "an answer of some kind", question_id: @question.id)
-          Answer.create(text: "an answer of some kind.", question_id: @question.id)
-          Answer.create(text: "an answer of some kind?", question_id: @question.id)
-          Answer.create(text: "an answer of some kind...", question_id: @question.id)
+      @room = Room.create(name: "Asdf", password: "passw", roomcode: "ABCD")
+      @question = Question.create(body: "something", room_id: @room.id)
+      Answer.create(text: "an answer of some kind", question_id: @question.id)
+      Answer.create(text: "an answer of some kind.", question_id: @question.id)
+      Answer.create(text: "an answer of some kind?", question_id: @question.id)
+      Answer.create(text: "an answer of some kind...", question_id: @question.id)
 
+      @question = Question.create(body: "something more", room_id: @room.id)
+      Answer.create(text: "one", question_id: @question.id)
+      Answer.create(text: "three", question_id: @question.id)
+      Answer.create(text: "four", question_id: @question.id)
+
+      expect {
           join_with_name("ABCD", "username2");
 
           visit '/rooms/quiz/' + @room.id.to_s + '/question/1'
@@ -43,11 +48,21 @@ feature "Take Quiz" do
 
           # We're back on the response page / main quiz page
           expect(page).to have_content("Asdf")
-        }.to change{Response.all.count}.by(1)
 
+          expect(page).to have_content("username2")
+
+          # It shows what they answered somewhere
+          expect(page).to have_content("an answer of some kind")
+      }.to change{Response.all.count}.by(1)
+
+      expect {
+        visit '/rooms/quiz/' + @room.id.to_s + '/question/2'
+        choose "option1"
+        click_button "Submit"
+
+        expect(page).to have_content("Asdf")
         expect(page).to have_content("username2")
-
-        # It shows what they answered somewhere
-        expect(page).to have_content("an answer of some kind")
+        expect(page).to have_content("three")
+      }.to change{Response.all.count}.by(1)
    end
 end
