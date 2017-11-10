@@ -47,7 +47,7 @@ feature "Create room", :order => :defined do
 
     page.find('a.question').click
 
-    expect(page.current_path).to eql("/rooms/" + @room.id.to_s + "/questions/1")
+    expect(page.current_path).to eql("/rooms/" + @room.id.to_s + "/questions/" + @question.id.to_s)
 
     # actually add some answers
 

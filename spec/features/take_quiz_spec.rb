@@ -14,7 +14,7 @@ feature "Take Quiz" do
     click_button "Join Room"
   end
 
-  scenario "student joins a room before the teacher has started the quiz" do
+  scenario "student joins a room (logs in with code) before the teacher has started the quiz" do
     @room = Room.create(name: "Asdf", password: "passw", roomcode: "ABCD")
 
     join_with_name("ABCD", "username1");
