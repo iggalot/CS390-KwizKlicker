@@ -61,6 +61,14 @@ class RoomsController < ApplicationController
     end
   end
 
+  def destroy
+    @room = Room.find(params[:id])
+    session[:rooms].delete(@room.id)
+    @room.destroy
+
+    redirect_to '/'
+  end
+
   def authed?
     unless session.has_key? :rooms
       return false

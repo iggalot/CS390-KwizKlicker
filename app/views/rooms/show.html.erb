@@ -9,6 +9,9 @@
 
 <a class="button" id="start_quiz" href="/rooms/remote/<%= @room.id.to_s %>">Start Quiz</a>
 
+<%= link_to 'Delete Room', [@room],
+            method: :delete, data: {confirm: 'Are you sure?'}, :class => "button delete_room" %>
+
 <h2>Questions</h2>
 <% @room.questions.each do |question| %>
 
