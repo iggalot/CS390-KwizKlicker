@@ -1,8 +1,8 @@
 <script>
-var disp = new WebSocketRails('localhost:3000/websocket');
-disp.on_open = function() {
-    alert('asdfadf');
-}
+    var disp = new WebSocketRails('localhost:3000/websocket');
+    disp.on_open = function () {
+        alert('asdfadf');
+    }
 </script>
 
 <h1><%= @room.name %></h1>

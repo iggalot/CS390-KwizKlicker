@@ -1,4 +1,3 @@
-
 <div class="container, small_spac">
   <div class="page-header">
     <h1>KwizKlicker Lobby</h1>
@@ -7,61 +6,65 @@
 
 <!-- Teachers section -->
 
-    <div class="card" style="width:400px;display:inline-block">
-      <div class="card-img-top">
-	<%= image_tag("teacher1.png", :alt => "rss feed", :width => "100%") %>
-      </div>
-      <div class="card-body">
-	<h2 class="card-title">Teachers</h2>
-	
-	<a href="/rooms/new" style="text-decoration: none">
-	  <button class="button">Create Room</button>
-	</a>
-      </div>
-    </div>
+<div class="card" style="width:400px;display:inline-block">
+  <div class="card-img-top">
+    <%= image_tag("teacher1.png", :alt => "rss feed", :width => "100%") %>
   </div>
-  
+  <div class="card-body">
+    <h2 class="card-title">Teachers</h2>
+
+    <a href="/rooms/new" style="text-decoration: none">
+      <button class="button">Create Room</button>
+    </a>
+  </div>
+</div>
+</div>
+
 
 <!--students section -->
 <div class="card" style="width:400px;display:inline-block">
-      <div class="card-img-top">
-	<%= image_tag("img_avatar1.png", :alt => "rss feed", :width => "100%") %>
-      </div>
-      <div class="card-body">
-	<h2 class="card-title">Students</h2>
-	
-	<a href="/join_room/show" style="text-decoration: none">
-	  <button class="button">Join Existing Room</button>
-	</a>
-      </div>
-    </div>
+  <div class="card-img-top">
+    <%= image_tag("img_avatar1.png", :alt => "rss feed", :width => "100%") %>
   </div>
+  <div class="card-body">
+    <h2 class="card-title">Students</h2>
+
+    <a href="/join_room/show" style="text-decoration: none">
+      <button class="button">Join Existing Room</button>
+    </a>
+  </div>
+</div>
+</div>
 
 <div class="small_space"></div>
 
- <!-- List of rooms -->
+<!-- List of rooms -->
 <div class="container" style="width:50%;margin-left:0px" class="roomListBorder">
   <h2>Your rooms:</h2>
-  <ul class="list-group" >
-    <li class="list-group-item" style="font-size:20px;background:#474e5d" >
-      
-	<% if session.has_key? :rooms %>
-		<% session[:rooms].each do |id| %>
-		<% unless id.nil? %>
-		<div  >
-		  <a class="RoomItem" href="/rooms/<%= id %>">
-		    <%= Room.find(id).name%>
-		  </a>
-		</div>
-			<% end %>
-		<% end %>
-	<% else %>
-		None
-	<% end %>
-	
-	</li>
+  <ul class="list-group">
+    <li class="list-group-item" style="font-size:20px;background:#474e5d">
+
+      <% if session.has_key? :rooms %>
+          <% session[:rooms].each do |id| %>
+              <% if not Room.exists?(id) %>
+                  <% session[:rooms].delete(id) %>
+                <% next %>
+              <% end %>
+              <% unless id.nil? %>
+                  <div>
+                    <a class="RoomItem" href="/rooms/<%= id %>">
+                      <%= Room.find(id).name %>
+                    </a>
+                  </div>
+              <% end %>
+          <% end %>
+      <% else %>
+          None
+      <% end %>
+
+    </li>
   </ul>
 </div>
 
-<div class="small_space"> </div>
+<div class="small_space"></div>
 
