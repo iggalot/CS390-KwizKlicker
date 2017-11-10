@@ -13,7 +13,6 @@ class RoomsController < ApplicationController
   end
 
   def post_quiz_question
-
     @room = Room.find(params[:id])
 
     unless session.has_key? :username
