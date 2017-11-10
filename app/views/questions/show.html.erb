@@ -28,6 +28,7 @@
           <% next %>
       <% end %>
       <li class="answer"><%= each.text %></li>
+	<%= link_to 'delete comment', [each.question.room, @question, each], method: :delete, data: {confirm: 'Are you sure?'} %>
   <% end %>
 </ol>
 </p>
