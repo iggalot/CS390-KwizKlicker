@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     get '/remote/:id' => 'rooms#remote'
   end
 
+  get '/api/active/:id' => 'json_api#active'
+
   #scope '/join_room' do
    # post 'show' => 'join_room#show'
     #get 'show' => 'join_room#show'
