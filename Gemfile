@@ -57,3 +57,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # For generating room passwords
 gem 'simple-password-gen'
+
+# For testing with PhantomJS
+gem 'poltergeist'

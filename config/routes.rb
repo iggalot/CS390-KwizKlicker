@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get '/quiz/:id' => 'rooms#quiz'
     get '/quiz/:id/question/:question_id' => 'rooms#get_quiz_question'
     post '/quiz/:id/question/:question_id' => 'rooms#post_quiz_question'
+    get '/remote/:id' => 'rooms#remote'
   end
 
   #scope '/join_room' do

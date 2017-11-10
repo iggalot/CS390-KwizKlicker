@@ -7,6 +7,8 @@
   <span id="roomcode"><%= @room.roomcode %></span>
 </p>
 
+<a class="button" id="start_quiz" href="/rooms/remote/<%= @room.id.to_s %>">Start Quiz</a>
+
 <h2>Questions</h2>
 <% @room.questions.each do |question| %>
 

@@ -1,5 +1,15 @@
 require 'rails_helper'
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
 
+def in_browser(name)
+  old_session = Capybara.session_name
+
+  Capybara.session_name = name
+  yield
+
+  Capybara.session_name = old_session
+end
 
 feature "Create room", :order => :defined do
   scenario "Teacher creates a room and adds a question, then adds some answers to it" do
@@ -70,5 +80,31 @@ feature "Create room", :order => :defined do
 
 
     expect(page).to have_selector('li.answer', count: 4)
+  end
+
+  scenario "Teacher activates the room / presents it to the class" do
+    @room = Room.create(name: "Asdf", password: "passw", roomcode: "ABCD")
+
+    in_browser(:teacher) do
+      visit '/rooms/' + @room.id.to_s
+      fill_in "password", :with => "passw"
+      find('input[type=submit]').click
+
+      page.find('#start_quiz').click
+
+      # They are presented with the remote
+      expect(page.current_path).to eql('/rooms/remote/' + @room.id.to_s)
+
+      @room = Room.find(@room.id)
+      expect(@room.state).to eql("active")
+
+      expect(page).to have_selector('#next_question')
+    end
+
+    in_browser(:student) do
+      visit '/'
+      click_on 'Join Room'
+    end
+
   end
 end

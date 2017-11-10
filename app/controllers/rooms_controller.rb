@@ -12,6 +12,16 @@ class RoomsController < ApplicationController
     render 'quiz_question'
   end
 
+  def remote
+    @room = Room.find(params[:id])
+    @room.state = "active"
+
+    if @room.save
+
+      render 'remote'
+    end
+  end
+
   def post_quiz_question
     @room = Room.find(params[:id])
 
