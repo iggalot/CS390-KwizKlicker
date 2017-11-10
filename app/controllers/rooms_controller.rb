@@ -36,6 +36,20 @@ class RoomsController < ApplicationController
     redirect_to '/rooms/quiz/' + @room.id.to_s
   end
 
+  def next_question
+    @room = Room.find(params[:id])
+
+    if @room.active_question.nil?
+      @room.active_question = 1
+    else
+      @room.active_question += 1
+    end
+
+    @room.save
+
+    redirect_to '/rooms/remote/' + @room.id.to_s
+  end
+
   def quiz
     @room = Room.find(params[:id])
     @username = session[:username]
@@ -52,6 +66,7 @@ class RoomsController < ApplicationController
   end
 
   def show
+
     @room = Room.find(params[:id])
 
     if authed?

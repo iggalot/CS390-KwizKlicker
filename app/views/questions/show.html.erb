@@ -27,10 +27,16 @@
       <% if each.nil? or each.text.nil? %> <!-- todo -->
           <% next %>
       <% end %>
-      <li class="answer"><%= each.text %></li>
-	<%= link_to 'delete comment', [each.question.room, @question, each], method: :delete, data: {confirm: 'Are you sure?'} %>
+      <li class="answer">
+        <%= each.text %>
+        <%= link_to 'Delete', [each.question.room, @question, each], method: :delete, data: {confirm: 'Are you sure?'}, :class => "button" %>
+      </li>
   <% end %>
 </ol>
 </p>
 
-<%= link_to 'Back', room_path(@room), :class => "button2" %>
+<br><br><br>
+<p>
+  <%= link_to 'Back', room_path(@room), :class => "button2" %>
+</p>
+

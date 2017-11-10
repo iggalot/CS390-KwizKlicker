@@ -105,6 +105,31 @@ feature "Create room", :order => :defined do
       visit '/'
       click_on 'Join Room'
     end
+  end
 
+  scenario "Teacher switches the question" do
+    @room = Room.create(name: "Asdf", password: "passw", roomcode: "ABCD")
+
+    in_browser(:teacher) do
+      visit '/rooms/' + @room.id.to_s
+      fill_in "password", :with => "passw"
+
+      find('input[type=submit]').click
+      page.find('#start_quiz').click
+
+      # They are presented with the remote, activating the room
+      expect(page.current_path).to eql('/rooms/remote/' + @room.id.to_s)
+
+      @room = Room.find(@room.id)
+      expect(@room.state).to eql("active")
+
+      expect(page).to have_selector('#next_question')
+
+      find('#next_question').click
+      @room = Room.find(@room.id)
+
+      expect(@room.active_question).to eql(1)
+
+    end
   end
 end
