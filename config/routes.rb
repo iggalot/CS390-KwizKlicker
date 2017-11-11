@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     post '/quiz/:id/question/:question_id' => 'rooms#post_quiz_question'
     get '/remote/:id/next' => 'rooms#next_question'
     get '/remote/:id' => 'rooms#remote'
+    get '/reset/:id' => 'rooms#reset'
   end
 
   get '/api/active/:id' => 'json_api#active'

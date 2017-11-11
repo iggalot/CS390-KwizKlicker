@@ -1,0 +1,21 @@
+<script>
+    let room_id = <%= @room.id %>;
+    let is_active = <%= @room.state.nil? ? 0 : 1 %>;
+    let current_question = <%= @room.active_question.nil? ? -1 : @room.active_question %>;
+
+    setInterval(function() {
+        $.get('/api/active/' + room_id, data => {
+
+            if(!!data.active != is_active)
+        {
+            window.location.reload();
+        }
+
+        if (data.question != current_question) {
+            window.location.href = '/rooms/quiz/' + room_id + '/question/' + data.question;
+        }
+
+        console.log(data);
+    });
+    }, 200);
+</script>

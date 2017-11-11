@@ -50,6 +50,16 @@ class RoomsController < ApplicationController
     redirect_to '/rooms/remote/' + @room.id.to_s
   end
 
+  def reset
+    @room = Room.find(params[:id])
+    @room.active_question = nil
+    @room.state = nil
+    @room.save
+
+
+    redirect_to @room
+  end
+
   def quiz
     @room = Room.find(params[:id])
     @username = session[:username]
