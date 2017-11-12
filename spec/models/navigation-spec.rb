@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe "Navigation Requests Spec" do
 
   describe "Navigation should be available" do
