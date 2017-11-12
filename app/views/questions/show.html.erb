@@ -1,31 +1,36 @@
 <p>
-	<strong>Question</strong>
-	<%= @question.body %>
+  <strong>Question</strong>
+  <%= @question.body %>
 </p>
 <br>
 
 
 
 <%= form_for([@room, @question, @question.answers.build]) do |form| %>
-<p>
-	<%= form.label :answers %><br>
-	<%= form.text_field :text %>
-</p>
+    <p>
+      <%= form.label :answers %><br>
+      <%= form.text_field :text %>
+    </p>
 
-<p>
-	<%= form.submit "Create Answer" ,:class => "button"%>
-</p>
+    <p>
+      <%= form.submit "Create Answer", :class => "button" %>
+    </p>
 
 <% end %>
 
 
 
 
-<% @question.answers.each do |each| %>
 <p>
-	<%=  each.text %>
-	
+<ol>
+  <% @question.answers.each.with_index do |each, idx| %>
+      <% if each.nil? or each.text.nil? %> <!-- todo -->
+          <% next %>
+      <% end %>
+      <li class="answer"><%= each.text %></li>
+	<%= link_to 'delete comment', [each.question.room, @question, each], method: :delete, data: {confirm: 'Are you sure?'} %>
+  <% end %>
+</ol>
 </p>
-<% end %>
 
-<%= link_to 'Back', room_path(@room)  ,:class => "button2"%>
+<%= link_to 'Back', room_path(@room), :class => "button2" %>

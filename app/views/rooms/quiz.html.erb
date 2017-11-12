@@ -1,0 +1,16 @@
+<script>
+    var disp = new WebSocketRails('localhost:3000/websocket');
+    disp.on_open = function () {
+        alert('asdfadf');
+    }
+</script>
+
+<h1><%= @room.name %></h1>
+Your name is <span><%= @username %></span>
+<h2>Awaiting question.</h2>
+
+<% if @has_res %>
+    Your last response was: <i><%= @last_res_text %></i>
+<% else %>
+    You haven't answered any questions yet.
+<% end %>

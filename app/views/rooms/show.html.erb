@@ -1,38 +1,44 @@
 <p>
-	<strong>Name:</strong>
-	<%= @room.name %>
-	<strong>Password:</strong>
-	<%= @room.password %>
+  <strong>Name:</strong>
+  <%= @room.name %>
+  <strong>Password:</strong>
+  <span id="password"><%= @room.password %></span>
   <strong>Roomcode:</strong>
-  <%= @room.roomcode %>
+  <span id="roomcode"><%= @room.roomcode %></span>
 </p>
+
+<a class="button" id="start_quiz" href="/rooms/remote/<%= @room.id.to_s %>">Start Quiz</a>
+
+<%= link_to 'Delete Room', [@room],
+            method: :delete, data: {confirm: 'Are you sure?'}, :class => "button delete_room" %>
 
 <h2>Questions</h2>
 <% @room.questions.each do |question| %>
 
- <div id="nicebox">
-	<p style="text-decoration:none">
-		<%= question.body %>
-		<%= link_to 'View', [question.room, question] ,:class => "button" %>
-	</p>
-	
-	<p>
+    <div id="nicebox">
+      <p style="text-decoration:none">
+        <%= question.body %>
+        <%= link_to 'View', [question.room, question], :class => "button question" %>
+      </p>
+
+      <p>
 
 
-	<p>
-		<%= link_to 'Delete Question', [question.room, question],
-			method: :delete, data: { confirm: 'Are you sure?' } ,:class => "button" %>
-	</p>
- </div>
+      <p>
+        <%= link_to 'Delete Question', [question.room, question],
+                    method: :delete, data: {confirm: 'Are you sure?'}, :class => "button" %>
+      </p>
+    </div>
 <% end %>
 
 <h2>Add a question:</h2><br>
-<%= form_with(model: [ @room, @room.questions.build], local: true) do |form| %>
-	<p>
-		<%= form.label :question %><r>
-		<%= form.text_field :body %>
-	</p>
-	<p>
-		<%= form.submit "Create Question", :class=>"button" %>
-	</p>
+<%= form_with(model: [@room, @room.questions.build], local: true) do |form| %>
+    <p>
+      <%= form.label :question %>
+      <r>
+        <%= form.text_field :body %>
+    </p>
+    <p>
+      <%= form.submit "Create Question", :class => "button" %>
+    </p>
 <% end %>

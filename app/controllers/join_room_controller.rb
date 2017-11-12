@@ -12,11 +12,13 @@ class JoinRoomController < ApplicationController
 
   def create
     @info = StudentInfo.new(join_room_params)
-    @infocount = (StudentInfo.where(:name=>@info.name, :room=>@info.room.upcase!)).count
-
+    @infocount = (StudentInfo.where(:name=>@info.name, :room=>@info.room.upcase)).count
+    @room = Room.find_by_roomcode(@info.room.upcase)
     #if @infocount.eql?(0)
-      if (Room.find_by_roomcode(@info.room.upcase!).present? && @info.save)
-        render 'default'
+      if (@room.present? && @info.save)
+        session[:username] = @info.name
+        session[:romcode] = @info.room.upcase
+        redirect_to '/rooms/quiz/' + @room.id.to_s
       #end
     else
 
