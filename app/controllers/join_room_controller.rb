@@ -11,7 +11,6 @@ class JoinRoomController < ApplicationController
 
 
   def create
-    printf("HIIIIIIIIIIII!!!!!!!!!!!")
 
     @info = StudentInfo.new(join_room_params)
     #@room = Room.find_by_roomcode(@info.roomcode)
