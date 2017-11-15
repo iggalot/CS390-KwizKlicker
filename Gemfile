@@ -60,3 +60,4 @@ gem 'simple-password-gen'
 
 # For testing with PhantomJS
 gem 'poltergeist'
+gem 'phantomjs'
