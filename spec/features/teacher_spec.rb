@@ -1,9 +1,10 @@
 require 'rails_helper'
 require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
+require 'support/wait_for_ajax'
 
 def in_browser(name)
   old_session = Capybara.session_name
+
 
   Capybara.session_name = name
   yield
@@ -11,7 +12,25 @@ def in_browser(name)
   Capybara.session_name = old_session
 end
 
-feature "Create room", :order => :defined do
+def set_session(id)
+  Capybara.instance_variable_set("@session_pool", {
+      "#{Capybara.current_driver}#{Capybara.app.object_id}" => $sessions[id]
+  })
+end
+
+def in_session(id, &block)
+  $sessions ||= {}
+  $sessions[:default] ||= Capybara.current_session
+  $sessions[id]       ||= Capybara::Session.new(Capybara.current_driver, Capybara.app)
+
+  set_session(id)
+
+  yield
+
+  set_session(:default)
+end
+
+feature "Create room", js: true do
   scenario "Teacher creates a room and adds a question, then adds some answers to it" do
     visit '/'
     click_on "create_room"
@@ -107,29 +126,29 @@ feature "Create room", :order => :defined do
     end
   end
 
-  scenario "Teacher switches the question" do
+  scenario "Teacher switches the question", js: true do
     @room = Room.create(name: "Asdf", password: "passw", roomcode: "ABCD")
+    Question.create(body: "a question", room_id: @room.id)
 
-    in_browser(:teacher) do
-      visit '/rooms/' + @room.id.to_s
-      fill_in "password", :with => "passw"
+    visit '/rooms/' + @room.id.to_s
+    fill_in "password", :with => "passw"
 
-      find('input[type=submit]').click
-      page.find('#start_quiz').click
+    find('input[type=submit]').click
+    page.find('#start_quiz').click
 
-      # They are presented with the remote, activating the room
-      expect(page.current_path).to eql('/rooms/remote/' + @room.id.to_s)
+    # They are presented with the remote, activating the room
+    expect(page.current_path).to eql('/rooms/remote/' + @room.id.to_s)
 
-      @room = Room.find(@room.id)
-      expect(@room.state).to eql("active")
+    @room = Room.find(@room.id)
+    expect(@room.state).to eql("active")
 
-      expect(page).to have_selector('#next_question')
+    expect(@room.active_question).to eql(nil)
 
-      find('#next_question').click
-      @room = Room.find(@room.id)
+    find('#next_question').click
 
-      expect(@room.active_question).to eql(1)
+    expect(page).to have_selector('#next_question')
 
-    end
+    @room = Room.find(@room.id)
+    expect(@room.active_question).to eql(1)
   end
 end

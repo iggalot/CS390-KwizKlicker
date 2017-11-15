@@ -1,4 +1,6 @@
-<script>
+<script language="javascript">
+  ;;;
+    window.status = 'waiting';
     let room_id = <%= @room.id %>;
     let is_active = <%= @room.state.nil? ? 0 : 1 %>;
     let current_question = <%= @room.active_question.nil? ? -1 : @room.active_question %>;
@@ -8,10 +10,12 @@
 
             if(!!data.active != is_active)
         {
+            window.status = 'continue';
             window.location.reload();
         }
 
         if (data.question != current_question) {
+            window.status = 'continue';
             window.location.href = '/rooms/quiz/' + room_id + '/question/' + data.question;
         }
 
