@@ -2,9 +2,11 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 require 'support/wait_for_ajax'
 
+Capybara.javascript_driver = :poltergeist
+Capybara.current_driver = :poltergeist
+
 def in_browser(name)
   old_session = Capybara.session_name
-
 
   Capybara.session_name = name
   yield
