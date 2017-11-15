@@ -107,6 +107,9 @@ class RoomsController < ApplicationController
     else
       render 'new'
     end
+    ActionCable.server.broadcast 'quizroom_channel',
+                                 {content: "Room Code: " + code + " has been created",
+                                  action: 'quiz_start'}
   end
 
   private
