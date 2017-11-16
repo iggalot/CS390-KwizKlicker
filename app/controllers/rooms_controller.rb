@@ -59,7 +59,7 @@ class RoomsController < ApplicationController
 	end
 
 	def destroy
-		@room.find(params[:id])
+		@room = Room.find(params[:id])
 		@room.destroy
 	end
 

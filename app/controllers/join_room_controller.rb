@@ -12,17 +12,13 @@ class JoinRoomController < ApplicationController
 
   def create
 
-    @info = StudentInfo.new(join_room_params)
-    #@room = Room.find_by_roomcode(@info.roomcode)
-    #@info2 = @room.student_infos.create(join_room_params)
+    temp = StudentInfo.new(join_room_params)
 
-    if (Room.find_by_roomcode(@info.roomcode.upcase).present?)
-      #@counter = Room.find_by_roomcode(@info.roomcode)
-      @room = Room.find_by_roomcode(@info.roomcode.upcase)
-      @info2 = @room.student_infos.create(join_room_params)
-      if (@info2.save)
-        #@info = StudentInfo.new(join_room_params)
-        #if (Room.find_by_roomcode(@info.room.upcase!).present? && @info.save)
+    if (Room.find_by_roomcode(temp.roomcode.upcase).present?)
+
+      @room = Room.find_by_roomcode(temp.roomcode.upcase)
+      @info = @room.student_infos.create(join_room_params)
+      if (@info.save)
         render 'default'
         end
     else
@@ -58,8 +54,8 @@ class JoinRoomController < ApplicationController
   end
 
   def destroy
-    @info.find(params[:id])
-    @info.destroy
+    @del = Room.find(params[:id])
+    @del.destroy
   end
 
   private
