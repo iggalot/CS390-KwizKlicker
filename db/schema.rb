@@ -49,9 +49,11 @@ ActiveRecord::Schema.define(version: 20171110012533) do
 
   create_table "student_infos", force: :cascade do |t|
     t.string "name"
-    t.string "room"
+    t.string "roomcode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "room_id"
+    t.index ["room_id"], name: "index_student_infos_on_room_id"
   end
 
 end

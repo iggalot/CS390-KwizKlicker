@@ -12,10 +12,5 @@ RSpec.describe RoomsController, type: :controller do
       }.to change{Room.all.count}.by(2)
 		end
   end
-
-	pending "doesnt allow duplicate rooms to exist"
-	pending "asks for teacher id?"
-	pending "verifies teacher id is unique in database"
-	pending "verifies that a teacher isn't already assigned to a room"
-	pending "enters valid room identifier label?"
+  
 end

@@ -55,6 +55,15 @@ RSpec.describe Room, type: :model do
     it "accepts room code is 4 capital letters" do
       expect(Room.new(:name=>"aaaa", :password=>"password", :roomcode=>"AAAA")).to be_valid
     end
+    it "does not accept a roomcode that is already taken" do
+      @room = Room.create(:name=>"aaaa", :password=>"password", :roomcode=>"AAAA")
+      @room2 = Room.create(:name=>"aaaa", :password=>"password", :roomcode=>"AAAA")
+
+      expect(@room).to be_valid
+      expect(@room2).to be_invalid
+
+      @room.destroy
+    end
     # other possible tests to include:
     # ===============================================
     # is the room code valid (in the StudentInfo database)

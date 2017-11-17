@@ -11,15 +11,20 @@ class JoinRoomController < ApplicationController
 
 
   def create
-    @info = StudentInfo.new(join_room_params)
-    @infocount = (StudentInfo.where(:name=>@info.name, :room=>@info.room.upcase)).count
-    @room = Room.find_by_roomcode(@info.room.upcase)
-    #if @infocount.eql?(0)
-      if (@room.present? && @info.save)
+
+
+    temp = StudentInfo.new(join_room_params)
+
+    if (Room.find_by_roomcode(temp.roomcode.upcase).present?)
+
+      @room = Room.find_by_roomcode(temp.roomcode.upcase)
+      @info = @room.student_infos.create(join_room_params)
+      if (@info.save)
         session[:username] = @info.name
-        session[:romcode] = @info.room.upcase
+        session[:roomcode] = @info.room
         redirect_to '/rooms/quiz/' + @room.id.to_s
-      #end
+      end
+
     else
 
 =begin
@@ -53,12 +58,12 @@ class JoinRoomController < ApplicationController
   end
 
   def destroy
-    @info.find(params[:id])
-    @info.destroy
+    @del = Room.find(params[:id])
+    @del.destroy
   end
 
   private
   def join_room_params
-    params.require(:join_room).permit(:name, :room)
+    params.require(:join_room).permit(:name, :roomcode)
   end
 end

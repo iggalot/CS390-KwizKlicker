@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
 
-
 	describe "Questions are properly created" do
 		it "If a question has no body, throw a fit" do
 			@room = Room.create(name: "Temporary", password: "2R4U", roomcode: "LLLL")
@@ -37,4 +36,5 @@ RSpec.describe Question, type: :model do
 		}.to change{Question.all.count}.by(-1)
 		end
 	end
+
 end

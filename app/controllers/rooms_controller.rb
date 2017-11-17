@@ -1,6 +1,7 @@
 require 'simple-password-gen'
 
 class RoomsController < ApplicationController
+
   def new
     @room = Room.new
   end
@@ -148,4 +149,5 @@ class RoomsController < ApplicationController
     return @code
 
   end
+
 end
