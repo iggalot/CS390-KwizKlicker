@@ -12,7 +12,14 @@ RSpec.describe Question, type: :model do
 	end
 
 
-
+	describe "Questions can be made" do
+		it "Makes a valid question, checks if it changed question number" do
+			@room = Room.create(name: "Temp", password: "URDB", roomcode: "nnMM")
+			expect{
+				@question = Question.create(room_id: @room.id, body: "hello")
+				}.to change{@room.questions.count}.by(1)
+		end
+	end
 
 
 	describe "It is possible to delete a question" do
@@ -21,7 +28,7 @@ RSpec.describe Question, type: :model do
 			@question = Question.create(room_id: @room.id, body: "Deleting")
 			expect{
 					@question.destroy
-				}.to change{Question.all.count}.by(-1)
+				}.to change{@room.questions.count}.by(-1)
 		end
 	end
 
