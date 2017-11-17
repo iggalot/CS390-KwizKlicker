@@ -26,7 +26,7 @@
   <% @question.answers.each.with_index do |each, idx| %>
       <% if each.nil? or each.text.nil? %> <!-- todo -->
           <% next %>
-      <% end %>
+      <% end %><br><br>
       <li class="answer">
         <%= each.text %>
         <%= link_to 'Delete', [each.question.room, @question, each], method: :delete, data: {confirm: 'Are you sure?'}, :class => "button" %>
