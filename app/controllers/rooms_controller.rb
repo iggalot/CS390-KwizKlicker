@@ -90,6 +90,7 @@ class RoomsController < ApplicationController
   def destroy
     @room = Room.find(params[:id])
     session[:rooms].delete(@room.id)
+    #print(@room.id)
     @room.destroy
 
     redirect_to '/'

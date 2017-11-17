@@ -8,7 +8,7 @@ feature "Take Quiz" do
     expect(page).to_not have_content("Lobby")
     expect(page).to have_content("Join Existing Room")
 
-    fill_in "join_room[room]", :with => room
+    fill_in "join_room[roomcode]", :with => room
     fill_in "join_room[name]", :with => name
 
     click_button "Join Room"
