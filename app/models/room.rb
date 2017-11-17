@@ -6,4 +6,5 @@ class Room < ApplicationRecord
 						length: { minimum: 2 }
 	validates :roomcode, presence: true,
 						length: {is: 4} , format: { with: /\A[a-zA-Z]+\z/}
+	validates_uniqueness_of :roomcode
 end
