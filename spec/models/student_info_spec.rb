@@ -159,29 +159,38 @@ RSpec.describe StudentInfo, type: :model do
     # is the username shorter than the maximum length?
   end
 
-=begin
+
   context "Deletion Tests" do
     it "destroys info without destroying room" do
       @room = Room.create(:name=>"test", :password=>"password", :roomcode=>"CDEF")
       @student = @room.student_infos.create(:name=>"name1", :roomcode=>"cdef")
 
-      @student.destroy
+      @student_id = @student.id
+
+      expect {
+        @student.destroy
+      }.to change{Room.count}.by(0)
+       .and change{StudentInfo.count}.by(-1)
 
       expect(@room).to be_valid
-      expect(@student).to be_invalid
+      expect{StudentInfo.find(@student_id)}.to raise_exception(ActiveRecord::RecordNotFound)
     end
 
     it "destroys info when destroying room" do
       @room = Room.create(:name=>"test", :password=>"password", :roomcode=>"CDEF")
       @student = @room.student_infos.create(:name=>"name1", :roomcode=>"cdef")
+      @student_id = @student.id
+      @room_id = @room.id
 
-      @room.destroy
-      #@student.destroy
+      expect {
+        @room.destroy
+      }.to change{Room.count}.by(-1)
+       .and change{StudentInfo.count}.by(-1)
 
-      expect(@room).to be_invalid
-      expect(@student).to be_invalid
+      expect{Room.find(@room_id)}.to raise_exception(ActiveRecord::RecordNotFound)
+      expect{StudentInfo.find(@student_id)}.to raise_exception(ActiveRecord::RecordNotFound)
     end
   end
-=end
+
 
 end
