@@ -14,7 +14,6 @@ def in_browser(name)
   Capybara.session_name = old_session
 end
 
-
 feature "Create room", js: true do
   scenario "Teacher creates a room and adds a question, then adds some answers to it" do
     visit '/'
@@ -134,8 +133,8 @@ feature "Create room", js: true do
 
       find('input[type=submit]').click
       page.find('#start_quiz').click
-      expect(page).to_not have_selector("#quiz_showing_question")
       expect(page).to have_selector("#quiz_active")
+      expect(page).to_not have_selector("#quiz_showing_question")
 
       # They are presented with the remote, activating the room
       expect(page.current_path).to eql('/rooms/remote/' + @room.id.to_s)
@@ -148,15 +147,14 @@ feature "Create room", js: true do
     end
 
     in_browser(:student) do
+      sleep(5)
       expect(page).to have_selector("#started")
     end
 
     in_browser(:teacher) do
       find('#next_question').click
-      expect(page).to have_selector('#next_question')
-
+      sleep(5)
       expect(page).to have_selector("#quiz_showing_question")
-
 
       @room = Room.find(@room.id)
       expect(@room.active_question).to eql(1)
@@ -167,6 +165,13 @@ feature "Create room", js: true do
       expect(page).to have_content("Question #1")
 
       expect(page).to have_content("1492")
+
+      choose(option: "2")
+      click_on "Submit Answer"
+
+      expect(page).to have_content("1492")
+
+      expect(page).to have_selector("#finished")
     end
 
   end
