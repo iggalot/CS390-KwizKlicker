@@ -174,6 +174,8 @@ RSpec.describe StudentInfo, type: :model do
 
       expect(@room).to be_valid
       expect{StudentInfo.find(@student_id)}.to raise_exception(ActiveRecord::RecordNotFound)
+
+      @room.destroy
     end
 
     it "destroys info when destroying room" do
@@ -189,6 +191,8 @@ RSpec.describe StudentInfo, type: :model do
 
       expect{Room.find(@room_id)}.to raise_exception(ActiveRecord::RecordNotFound)
       expect{StudentInfo.find(@student_id)}.to raise_exception(ActiveRecord::RecordNotFound)
+
+      @room.destroy
     end
   end
 

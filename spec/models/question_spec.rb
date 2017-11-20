@@ -35,7 +35,7 @@ RSpec.describe Question, type: :model do
 	describe "If a room is deleted, delete all questions attatched." do
 		it "Makes a room, and then a question. Delete the room, then see if question count changes" do
 
-		@room = Room.create(name: "Delete testing", password: "R24U", roomcode: "rffr")
+		@room = Room.create(name: "Delete testing", password: "R24U", roomcode: "rffp")
 		@question = Question.create(room_id: @room.id, body: "Will this delete?")
 
 		expect{

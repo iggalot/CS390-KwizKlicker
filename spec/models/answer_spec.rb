@@ -5,6 +5,7 @@ RSpec.describe AnswersController, type: :controller do
 		@room = Room.create(name: "Answer testing room", password: "Alphanumeric", roomcode: "rffr")
 		@question = Question.create(room_id: @room.id, body: "Does rails work?")
 
+
 	end
 	describe "Answers belong to question." do
 		it 'make a new answer' do
