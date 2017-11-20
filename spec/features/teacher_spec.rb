@@ -151,10 +151,11 @@ feature "Create room", js: true do
       find('#next_question').click
       expect(page).to have_selector('#next_question')
 
+      expect(page).to have_selector("#quiz_showing_question")
+
+
       @room = Room.find(@room.id)
       expect(@room.active_question).to eql(1)
-
-      expect(page).to have_selector("#quiz_showing_question")
     end
 
     in_browser(:student) do
