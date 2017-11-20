@@ -1,1 +1,8 @@
+<% if @room.state == 'active' %>
+<div id="quiz_active">now active</div>
+<% end %>
+
+<% if @room.state == 'active' and @room.active_question.present? %>
+    <div id="quiz_showing_question">quiz on question <%= @room.active_question %></div>
+<% end %>
 <a id="next_question" class="button" href="/rooms/remote/<%= @room.id %>/next">Next Question</a>

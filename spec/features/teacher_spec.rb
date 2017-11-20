@@ -14,23 +14,6 @@ def in_browser(name)
   Capybara.session_name = old_session
 end
 
-def set_session(id)
-  Capybara.instance_variable_set("@session_pool", {
-      "#{Capybara.current_driver}#{Capybara.app.object_id}" => $sessions[id]
-  })
-end
-
-def in_session(id, &block)
-  $sessions ||= {}
-  $sessions[:default] ||= Capybara.current_session
-  $sessions[id]       ||= Capybara::Session.new(Capybara.current_driver, Capybara.app)
-
-  set_session(id)
-
-  yield
-
-  set_session(:default)
-end
 
 feature "Create room", js: true do
   scenario "Teacher creates a room and adds a question, then adds some answers to it" do
@@ -132,25 +115,53 @@ feature "Create room", js: true do
     @room = Room.create(name: "Asdf", password: "passw", roomcode: "ABCD")
     Question.create(body: "a question", room_id: @room.id)
 
-    visit '/rooms/' + @room.id.to_s
-    fill_in "password", :with => "passw"
+    in_browser(:student) do
+      visit '/join_room/show'
+      fill_in "join_room[roomcode]", :with=>"ABCD"
+      fill_in "join_room[name]", :with=>"goodstudent"
+      click_button "Join Room"
 
-    find('input[type=submit]').click
-    page.find('#start_quiz').click
+      expect(page).to have_selector("#not_started")
+    end
 
-    # They are presented with the remote, activating the room
-    expect(page.current_path).to eql('/rooms/remote/' + @room.id.to_s)
+    in_browser(:teacher) do
+      visit '/rooms/' + @room.id.to_s
+      fill_in "password", :with => "passw"
 
-    @room = Room.find(@room.id)
-    expect(@room.state).to eql("active")
+      find('input[type=submit]').click
+      page.find('#start_quiz').click
+      expect(page).to_not have_selector("#quiz_showing_question")
 
-    expect(@room.active_question).to eql(nil)
+      # They are presented with the remote, activating the room
+      expect(page.current_path).to eql('/rooms/remote/' + @room.id.to_s)
 
-    find('#next_question').click
+      @room = Room.find(@room.id)
+      expect(@room.state).to eql("active")
 
-    expect(page).to have_selector('#next_question')
+      expect(@room.active_question).to eql(nil)
 
-    @room = Room.find(@room.id)
-    expect(@room.active_question).to eql(1)
+      expect(page).to have_selector("#quiz_active")
+    end
+
+    in_browser(:student) do
+      expect(page).to have_selector("#started")
+    end
+
+    in_browser(:teacher) do
+      find('#next_question').click
+      expect(page).to have_selector('#next_question')
+
+      @room = Room.find(@room.id)
+      expect(@room.active_question).to eql(1)
+
+      expect(page).to have_selector("#quiz_showing_question")
+    end
+
+    in_browser(:student) do
+      expect(page).to have_selector("#question_id")
+      expect(page).to have_content("Question #1")
+    end
+
   end
+
 end

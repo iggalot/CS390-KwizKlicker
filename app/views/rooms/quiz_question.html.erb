@@ -1,7 +1,8 @@
 
 <%= render "rooms/quizjs.html.erb" %>
 
-<h2><%= @question.body %></h2>
+
+<h2><span id="question_id">Question #<%= @question_idx %></span>: <%= @question.body %></h2>
 <form method="post" style="margin: 50px;">
   <% @question.answers.each.with_index do |answer, idx| %>
       <input type="radio" name="response" value="<%= idx %>" id="option<%= idx %>"/> <%= answer.text %> <br>

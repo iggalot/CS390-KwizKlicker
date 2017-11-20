@@ -8,6 +8,7 @@ class RoomsController < ApplicationController
 
   def get_quiz_question
     @room = Room.find(params[:id])
+    @question_idx = params[:question_id].to_i;
     @question = @room.questions[params[:question_id].to_i - 1]
 
     render 'quiz_question'

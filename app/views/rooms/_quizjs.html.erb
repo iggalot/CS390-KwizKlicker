@@ -1,25 +1,26 @@
 <script language="javascript">
-  ;;;
     window.status = 'waiting';
-    let room_id = <%= @room.id %>;
-    let is_active = <%= @room.state.nil? ? 0 : 1 %>;
-    let current_question = <%= @room.active_question.nil? ? -1 : @room.active_question %>;
+    var room_id = <%= @room.id %>;
+    var is_active = <%= @room.state.nil? ? 0 : 1 %>;
+    var current_question = <%= @room.active_question.nil? ? -1 : @room.active_question %>;
 
     setInterval(function() {
-        $.get('/api/active/' + room_id, data => {
+        $.get('/api/active/' + room_id, function(data) {
 
             if(!!data.active != is_active)
         {
             window.status = 'continue';
+            //console.log('reloading!')
             window.location.reload();
         }
 
         if (data.question != current_question) {
             window.status = 'continue';
+            //console.log('going to question')
             window.location.href = '/rooms/quiz/' + room_id + '/question/' + data.question;
         }
 
-        console.log(data);
+        //console.log(JSON.stringify(data));
     });
     }, 200);
 </script>
