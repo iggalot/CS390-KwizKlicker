@@ -113,7 +113,11 @@ feature "Create room", js: true do
 
   scenario "Teacher switches the question", js: true do
     @room = Room.create(name: "Asdf", password: "passw", roomcode: "ABCD")
-    Question.create(body: "a question", room_id: @room.id)
+    @question = Question.create(body: "a question", room_id: @room.id)
+    Answer.create(text: "1950", question_id: @question.id)
+    Answer.create(text: "1850", question_id: @question.id)
+    Answer.create(text: "1492", question_id: @question.id)
+    Answer.create(text: "1493", question_id: @question.id)
 
     in_browser(:student) do
       visit '/join_room/show'
@@ -131,6 +135,7 @@ feature "Create room", js: true do
       find('input[type=submit]').click
       page.find('#start_quiz').click
       expect(page).to_not have_selector("#quiz_showing_question")
+      expect(page).to have_selector("#quiz_active")
 
       # They are presented with the remote, activating the room
       expect(page.current_path).to eql('/rooms/remote/' + @room.id.to_s)
@@ -140,7 +145,6 @@ feature "Create room", js: true do
 
       expect(@room.active_question).to eql(nil)
 
-      expect(page).to have_selector("#quiz_active")
     end
 
     in_browser(:student) do
@@ -161,6 +165,8 @@ feature "Create room", js: true do
     in_browser(:student) do
       expect(page).to have_selector("#question_id")
       expect(page).to have_content("Question #1")
+
+      expect(page).to have_content("1492")
     end
 
   end

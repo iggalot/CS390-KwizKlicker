@@ -4,23 +4,27 @@
     var is_active = <%= @room.state.nil? ? 0 : 1 %>;
     var current_question = <%= @room.active_question.nil? ? -1 : @room.active_question %>;
 
-    setInterval(function() {
+    var job = setInterval(function() {
         $.get('/api/active/' + room_id, function(data) {
+
+            //console.log(room_id, is_active, current_question, JSON.stringify(data));
 
             if(!!data.active != is_active)
         {
             window.status = 'continue';
-            //console.log('reloading!')
+            // console.log('reloading!')
+            clearInterval(job);
             window.location.reload();
+            return;
         }
 
         if (data.question != current_question) {
             window.status = 'continue';
-            //console.log('going to question')
+            // console.log('going to question')
+            clearInterval(job);
             window.location.href = '/rooms/quiz/' + room_id + '/question/' + data.question;
         }
 
-        //console.log(JSON.stringify(data));
     });
     }, 200);
 </script>
