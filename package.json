@@ -1,5 +1,7 @@
 {
   "name": "kwizklicker",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "d3": "^4.11.0"
+  }
 }
