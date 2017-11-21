@@ -21,7 +21,12 @@ class JoinRoomController < ApplicationController
       @info = @room.student_infos.create(join_room_params)
       if (@info.save)
         session[:username] = @info.name
-        session[:roomcode] = @info.room
+        session[:roomcode] = @info.room.upcase
+
+        #announce arrival of users to the quiz room
+        ActionCable.server.broadcast 'quizroom_channel',
+                                     {content: @info.name + " has joined the room...",
+                                     action: 'join_room'}
         redirect_to '/rooms/quiz/' + @room.id.to_s
       end
 

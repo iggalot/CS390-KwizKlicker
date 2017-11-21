@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   root 'lobby#index'
   resources :rooms do
   	resources :questions do
-		resources :answers
-	end
+		  resources :answers
+	  end
   end
   scope '/rooms' do
   	post '/auth' => 'rooms#auth'
@@ -19,14 +19,12 @@ Rails.application.routes.draw do
 
   get '/api/active/:id' => 'json_api#active'
 
-  #scope '/join_room' do
-   # post 'show' => 'join_room#show'
-    #get 'show' => 'join_room#show'
-    #path 'join_room_path' =>
-  #end
   resources :join_room
   scope '/join_room' do
-   post 'show' => 'join_room#create'
+    post 'show' => 'join_room#create'
     get 'show' => 'join_room#show'
-    end
+  end
+
+  #for the action cable web socket stuff
+  mount ActionCable.server, at: '/cable'
 end
