@@ -6,10 +6,15 @@ Your name is <span><%= @username %></span>
 
 <% if @room.state.nil? %>
     <h2 id="not_started">Quiz not yet started.</h2>
-<% else %>
+<% elsif @room.state == "active" %>
     <h2 id="started">Awaiting next question.</h2>
+<% elsif @room.state == "finished" %>
+    <h2 id="finished">The quiz is over.</h2>
 <% end %>
 
+<% if @finished and @room.state == "active" %>
+  <h2 id="finished">You have reached the last question.</h2>
+<% end %>
 
     <% if @has_res %>
     Your last response was: <i><%= @last_res_text %></i>

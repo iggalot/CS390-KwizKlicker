@@ -133,6 +133,7 @@ feature "Create room", js: true do
 
       find('input[type=submit]').click
       page.find('#start_quiz').click
+
       expect(page).to have_selector("#quiz_active")
       expect(page).to_not have_selector("#quiz_showing_question")
 
@@ -143,7 +144,6 @@ feature "Create room", js: true do
       expect(@room.state).to eql("active")
 
       expect(@room.active_question).to eql(nil)
-
     end
 
     in_browser(:student) do
@@ -153,7 +153,9 @@ feature "Create room", js: true do
 
     in_browser(:teacher) do
       find('#next_question').click
+
       sleep(5)
+
       expect(page).to have_selector("#quiz_showing_question")
 
       @room = Room.find(@room.id)

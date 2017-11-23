@@ -12,15 +12,17 @@
             if(!!data.active != is_active)
         {
             window.status = 'continue';
-            // console.log('reloading!')
+           // console.log('reloading!');
             clearInterval(job);
             window.location.reload();
             return;
         }
 
+        var test = false;
         if (data.question != current_question) {
             window.status = 'continue';
-            // console.log('going to question')
+            //console.log('going to question', test);
+            test = true;
             clearInterval(job);
             window.location.href = '/rooms/quiz/' + room_id + '/question/' + data.question;
         }
