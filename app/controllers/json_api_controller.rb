@@ -17,4 +17,9 @@ class JsonApiController < ApplicationController
     @qid = params[:question_id]
     render json: Response.where(question_id: @qid).to_json
   end
+
+  def infos
+    @room_id = params[:room_id]
+    render json: StudentInfo.where(room_id: @room_id).to_json
+  end
 end

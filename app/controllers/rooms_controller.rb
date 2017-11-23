@@ -10,6 +10,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     @question_idx = params[:question_id].to_i;
     @question = @room.questions[params[:question_id].to_i - 1]
+    @username = session[:username]
 
     if @question.nil?
       redirect_to '/rooms/quiz/' + @room.id.to_s + '/finished'
@@ -17,6 +18,21 @@ class RoomsController < ApplicationController
       render 'quiz_question'
     end
   end
+
+  def present
+    @room = Room.find(params[:id])
+    render 'present'
+  end
+
+  def kick
+    @room = Room.find(params[:id])
+    @user = params[:username]
+
+    StudentInfo.find_by(room_id: @room.id, name: @user).destroy
+
+    redirect_to '/rooms/present/' + @room.id.to_s
+  end
+
 
   def finished
     @room = Room.find(params[:id])

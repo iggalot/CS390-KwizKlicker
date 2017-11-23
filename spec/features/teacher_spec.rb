@@ -178,4 +178,33 @@ feature "Create room", js: true do
 
   end
 
+  scenario "Teacher kicks a student", js: true do
+    @room = Room.create(name: "Asdf", password: "passw", roomcode: "ABCD")
+    @question = Question.create(body: "a question", room_id: @room.id)
+
+    in_browser(:student) do
+      visit '/join_room/show'
+      fill_in "join_room[roomcode]", :with=>"ABCD"
+      fill_in "join_room[name]", :with=>"badstudent"
+      click_button "Join Room"
+
+      expect(page).to have_selector("#not_started")
+    end
+
+    in_browser(:teacher) do
+      visit '/rooms/present/' + @room.id.to_s
+
+      expect(page).to have_selector("#kick_badstudent")
+
+      find("#kick_badstudent").click
+
+      expect(page).to_not have_selector("#kick_badstudent")
+
+    end
+
+    in_browser(:student) do
+      expect(page).to have_content("KwizKlicker Lobby")
+    end
+  end
+
 end

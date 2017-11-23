@@ -1,0 +1,16 @@
+<script>
+  var username = "<%= @username %>";
+
+
+  setInterval(function() {
+      $.get('/api/student_info/' + room_id, function(data) {
+          var names = data.map(function(x) {
+              return x.name;
+          });
+          if(names.indexOf(username) < 0) {
+              // kick
+              window.location.href = '/';
+          }
+      });
+  }, 200);
+</script>

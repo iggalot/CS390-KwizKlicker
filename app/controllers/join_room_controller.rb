@@ -19,6 +19,7 @@ class JoinRoomController < ApplicationController
 
       @room = Room.find_by_roomcode(temp.roomcode.upcase)
       @info = @room.student_infos.create(join_room_params)
+
       if (@info.save)
         session[:username] = @info.name
         session[:roomcode] = @info.room
