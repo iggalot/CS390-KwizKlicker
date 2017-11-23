@@ -22,7 +22,13 @@ class JoinRoomController < ApplicationController
       if (@info.save)
         session[:username] = @info.name
         session[:roomcode] = @info.room
-        redirect_to '/rooms/quiz/' + @room.id.to_s
+
+        if @room.active_question.present?
+          redirect_to '/rooms/quiz/' + @room.id.to_s + '/question/' + @room.active_question.to_s
+        else
+          redirect_to '/rooms/quiz/' + @room.id.to_s
+        end
+
       end
 
     else

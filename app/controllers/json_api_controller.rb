@@ -12,4 +12,9 @@ class JsonApiController < ApplicationController
       render json: {"error": 1}
     end
   end
+
+  def responses
+    @qid = params[:question_id]
+    render json: Response.where(question_id: @qid).to_json
+  end
 end

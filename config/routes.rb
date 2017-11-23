@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   end
 
   get '/api/active/:id' => 'json_api#active'
+  get '/api/responses/:question_id' => 'json_api#responses'
 
   #scope '/join_room' do
    # post 'show' => 'join_room#show'
