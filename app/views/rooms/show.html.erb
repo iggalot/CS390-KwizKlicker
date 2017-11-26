@@ -35,10 +35,40 @@
 <h2>Add a question:</h2><br>
 <%= form_with(model: [@room, @room.questions.build], local: true) do |form| %>
     <p>
-      <%= form.label :question %>
+      <%= form.label :question_body %>
       <r>
-        <%= form.text_field :body %>
+        <%= form.text_field :question_body %>
+      </r>
     </p>
+
+    <p>
+      <%= form.label :answer_body1 %>
+      <r>
+        <%= form.text_field :answer_body1 %>
+      </r>
+    </p>
+
+    <p>
+      <%= form.label :answer_body2 %>
+      <r>
+        <%= form.text_field :answer_body2 %>
+      </r>
+    </p>
+
+    <p>
+      <%= form.label :answer_body3 %>
+      <r>
+        <%= form.text_field :answer_body3 %>
+      </r>
+    </p>
+
+    <p>
+      <%= form.label :answer_body4 %>
+      <r>
+        <%= form.text_field :answer_body4 %>
+      </r>
+    </p>
+
     <p>
       <%= form.submit "Create Question", :class => "button" %>
     </p>
