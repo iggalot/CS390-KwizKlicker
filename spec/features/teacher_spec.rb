@@ -39,11 +39,14 @@ feature "Create room", js: true do
     fill_in "question[body]", :with => "What's (1/2)!?"
     find('input[name="commit"]').click
 
-    expect(page).to have_content("What's (1/2)!?")
+    click_on "Back"
 
+    expect(page).to have_content("What's (1/2)!?")
 
     fill_in "question[body]", :with => "What's (-1/2)!?"
     find('input[name="commit"]').click
+
+    click_on "Back"
 
     expect(page).to have_content("What's (-1/2)!?")
   end
@@ -199,10 +202,10 @@ feature "Create room", js: true do
       find("#kick_badstudent").click
 
       expect(page).to_not have_selector("#kick_badstudent")
-
     end
 
     in_browser(:student) do
+      sleep(5)
       expect(page).to have_content("KwizKlicker Lobby")
     end
   end
