@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     get 'show' => 'join_room#show'
   end
 
+  resources :graphics
+
   #for the action cable web socket stuff
   mount ActionCable.server, at: '/cable'
 end

@@ -9,4 +9,7 @@ class TeacherController < ApplicationController
     ActionCable.server.broadcast 'quizroom_channel', "Quiz is starting"
   end
 
+  def end_quiz
+    ActionCAble.server.broadcast 'quizroom_channel', "Quiz is ending"
+  end
 end

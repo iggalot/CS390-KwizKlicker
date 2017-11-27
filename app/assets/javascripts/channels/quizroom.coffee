@@ -10,6 +10,14 @@ App.quizroom = App.cable.subscriptions.create "QuizroomChannel",
     switch(data.action)
       when 'join_room'
         alert(data.content)
+      when 'leave_room'
+        alert(data.content)
       when 'quiz_start'
         alert("Quiz is now starting")
+      when 'quiz_end'
+        alert("Quiz is complete")
+      when 'next_question'
+        alert("Next Question...")
+      when 'show_result'
+        alert("Display results of question")
 

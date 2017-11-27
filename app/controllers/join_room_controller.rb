@@ -11,8 +11,6 @@ class JoinRoomController < ApplicationController
 
 
   def create
-
-
     temp = StudentInfo.new(join_room_params)
 
     if (Room.find_by_roomcode(temp.roomcode.upcase).present?)
@@ -21,7 +19,7 @@ class JoinRoomController < ApplicationController
       @info = @room.student_infos.create(join_room_params)
       if (@info.save)
         session[:username] = @info.name
-        session[:roomcode] = @info.room.upcase
+        session[:roomcode] = @info.room
 
         #announce arrival of users to the quiz room
         ActionCable.server.broadcast 'quizroom_channel',
