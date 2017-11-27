@@ -7,15 +7,7 @@ class QuestionsController < ApplicationController
 
   def create
     @room = Room.find(params[:room_id])
-    @question = Question.new(:body => params['question']['question_body'])
-    @answer = Answer.new(:text => params['question']['answer_body'])
-
-    @question.room = @room
-    @question.save
-
-    @answer.question = @question
-    @answer.save
-
+    @question = @room.questions.create(question_params)
     redirect_to room_path(@room)
   end
 
