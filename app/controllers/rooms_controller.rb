@@ -11,7 +11,16 @@ class RoomsController < ApplicationController
     @question_idx = params[:question_id].to_i;
     @question = @room.questions[params[:question_id].to_i - 1]
 
-    render 'quiz_question'
+    if @question.nil?
+      redirect_to '/rooms/quiz/' + @room.id.to_s + '/finished'
+    else
+      render 'quiz_question'
+    end
+  end
+
+  def finished
+    @room = Room.find(params[:id])
+    render 'finished'
   end
 
   def remote
@@ -35,6 +44,7 @@ class RoomsController < ApplicationController
     @question = @room.questions[params[:question_id].to_i - 1]
     @res = Response.create(question_id: @question.id, answeridx: params[:response].to_i, username: session[:username])
 
+
     redirect_to '/rooms/quiz/' + @room.id.to_s
   end
 
@@ -45,6 +55,13 @@ class RoomsController < ApplicationController
       @room.active_question = 1
     else
       @room.active_question += 1
+
+      if @room.active_question >= @room.questions.length
+        redirect_to '/rooms/quiz/' + @room.id.to_s + '/finished'
+        @room.state = "finished"
+        @room.save
+        return
+      end
     end
 
     @room.save
@@ -69,6 +86,10 @@ class RoomsController < ApplicationController
     # find most recent response
     @last_res = Response.order("created_at DESC").find_by_username(@username)
     @has_res = @last_res.present?
+
+    if @has_res
+      @finished = @last_res.question_id == @room.questions.last.id
+    end
 
     if @has_res
       @last_res_text = Question.find_by_id(@last_res.question_id).answers[@last_res.answeridx].text
