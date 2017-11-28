@@ -21,3 +21,21 @@ feature "Add answers to a question" do
 		expect(page).to have_text('IOS!')
 	end
 end
+
+
+
+feature "Answer deletion" do
+	scenario "Teacher makes an answer, then deletes it" do
+		@room = Room.create(name: "Room", password: "scenario", roomcode: "HJUI")
+		visit '/rooms/' + @room.id.to_s
+		fill_in "password", :with => "scenario"
+		find('input[type=submit]').click
+		fill_in 'question[body]', :with => 'Terminate'
+		find('input[type=submit]').click
+		fill_in 'answer[text]', :with => 'Deletion'
+		click_on('Create Answer')
+		expect{
+			click_on('Delete')
+		}.to change{Answer.all.count}.by(-1)
+	end
+end
