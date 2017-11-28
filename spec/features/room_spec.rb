@@ -19,3 +19,16 @@ feature "Delete room" do
     }.to change{Room.all.count}.by(-1)
   end
 end
+feature "Create room" do
+
+	scenario "Teacher creates a room" do
+		visit "/"
+		first(:link, 'Create Room').click
+		expect(page).to have_text('New Room')
+		fill_in('room[name]', :with => 'Yes sir')	
+		expect{
+			find('input[type=submit]').click
+		}.to change{Room.all.count}.by(1)
+	end
+
+end
