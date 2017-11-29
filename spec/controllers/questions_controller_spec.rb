@@ -14,7 +14,7 @@ RSpec.describe QuestionsController, type: :controller do
 		it 'puts a question in a room' do
             expect {
                 post :create, :params => {:question => {:body => "a question"}, :room_id => @id}
-                expect(response).to redirect_to '/rooms/' + @id.to_s
+                expect(response).to redirect_to '/rooms/' + @id.to_s + '/questions/' + Question.last.id.to_s
             }.to change{Question.all.count}.by(1)
 		end
 	end
