@@ -205,7 +205,7 @@ feature "Create room", js: true do
     end
 
     in_browser(:student) do
-      sleep(5)
+      sleep(10)
       expect(page).to have_content("KwizKlicker Lobby")
     end
   end
