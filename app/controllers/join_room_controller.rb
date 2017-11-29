@@ -21,6 +21,7 @@ class JoinRoomController < ApplicationController
       @info = @room.student_infos.create(join_room_params)
 
       if (@info.save)
+        session[:info] = @info
         session[:username] = @info.name
         session[:roomcode] = @info.room
 

@@ -1,6 +1,7 @@
 class StudentInfo < ApplicationRecord
   belongs_to :room
   validates :name, presence: true
+  has_many :responses, dependent: :destroy
   validates :roomcode, presence: true,
             length: {is: 4}, format: { with: /\A[a-zA-Z]+\z/}
             before_save :upcase_field

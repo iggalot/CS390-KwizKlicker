@@ -58,8 +58,10 @@ class RoomsController < ApplicationController
     end
 
     @question = @room.questions[params[:question_id].to_i - 1]
-    @res = Response.create(question_id: @question.id, answeridx: params[:response].to_i, username: session[:username])
-
+    @res = Response.create(question_id: @question.id,
+                           answeridx: params[:response].to_i,
+                           username: session[:username],
+                           student_info_id: session[:info])
 
     redirect_to '/rooms/quiz/' + @room.id.to_s
   end
