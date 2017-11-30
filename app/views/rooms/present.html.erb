@@ -1,3 +1,6 @@
+<h1>Presentation View</h1>
+
+
 <% @room.student_infos.each do |info| %>
     <%= info.name %> <a id="kick_<%= info.name %>" href="/rooms/kick/<%= @room.id %>/<%= info.name %>">Kick</a><br>
 <% end %>

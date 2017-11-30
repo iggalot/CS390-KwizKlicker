@@ -13,6 +13,8 @@
             method: :delete, data: {confirm: 'Are you sure?'}, :class => "button delete_room" %>
 
 <a class="button" id="reset_quiz" href="/rooms/reset/<%= @room.id.to_s %>">Reset Quiz</a>
+
+<br><br><a class="button" id="present_quiz" href="/rooms/present/<%= @room.id.to_s %>">Present Quiz</a>
 <h2>Questions</h2>
 <% @room.questions.each do |question| %>
 

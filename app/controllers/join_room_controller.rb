@@ -40,7 +40,7 @@ class JoinRoomController < ApplicationController
         flash[:name] = "Name can't be blank"
       end
 
-      if (@info.room.blank?)
+      if (@info.room.blank?)00fff
         flash[:room] = "Roomcode can't be blank"
 
       else if (@info.room.length != 4)
