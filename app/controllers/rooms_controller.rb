@@ -58,10 +58,12 @@ class RoomsController < ApplicationController
     end
 
     @question = @room.questions[params[:question_id].to_i - 1]
+
     @res = Response.create(question_id: @question.id,
+                           answer_id: @question.answers[params[:response].to_i].id,
                            answeridx: params[:response].to_i,
                            username: session[:username],
-                           student_info_id: session[:info])
+                           student_info_id: session[:info_id])
 
     redirect_to '/rooms/quiz/' + @room.id.to_s
   end
@@ -105,12 +107,13 @@ class RoomsController < ApplicationController
     @last_res = Response.order("created_at DESC").find_by_username(@username)
     @has_res = @last_res.present?
 
+    # ### it turns out here that @has_res is false.
     if @has_res
       @finished = @last_res.question_id == @room.questions.last.id
     end
 
     if @has_res
-      @last_res_text = Question.find_by_id(@last_res.question_id).answers[@last_res.answeridx].text
+      @last_res_text = Answer.find(@last_res.answer_id).text
     end
 
     render 'quiz'
