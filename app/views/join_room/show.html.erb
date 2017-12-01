@@ -6,7 +6,19 @@
 
 <%= form_with scope: :join_room, local: true do |form| %>
 
-
+    <% if @info.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@info.errors.count, "error") %>
+            prevented you from making this room:
+          </h2>
+          <ul>
+            <% @info.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
 
     <p>
       <%= form.label "Room Code" %><br>
@@ -23,5 +35,6 @@
       <%= form.button 'Join Room', type:'submit', :class => "button" %>
     </p>
 
+    <% flash.discard %>
 <% end %>
 
