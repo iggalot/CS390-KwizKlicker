@@ -106,8 +106,4 @@ RSpec.describe Room, type: :model do
 			}.to change{Room.all.count}.by(-1)
 		end
 	end
-
-
-
-
 end

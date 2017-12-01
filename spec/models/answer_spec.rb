@@ -66,8 +66,4 @@ RSpec.describe AnswersController, type: :controller do
 			}.to change{Answer.all.count}.by(-1)
 		end
 	end
-
-
-
-
 end
