@@ -2,8 +2,8 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 require 'support/wait_for_ajax'
 
-Capybara.javascript_driver = :poltergeist
-Capybara.current_driver = :poltergeist
+Capybara.javascript_driver = :selenium
+Capybara.current_driver = :selenium
 
 def in_browser(name)
   old_session = Capybara.session_name
