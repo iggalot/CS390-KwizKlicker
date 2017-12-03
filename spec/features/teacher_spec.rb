@@ -195,7 +195,7 @@ feature "Create room", js: true do
     end
 
     in_browser(:teacher) do
-      visit '/rooms/present/' + @room.id.to_s
+      visit '/rooms/remote/' + @room.id.to_s
 
       expect(page).to have_selector("#kick_badstudent")
 

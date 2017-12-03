@@ -27,7 +27,6 @@ Your name is <span><%= @username %></span>
   <% @question.answers.each.with_index do |answer, idx| %>
       <%= alpha[idx] %>.) <%= answer.text %> <br>
   <% end %>
-<% end %>
 
 
 
@@ -38,6 +37,8 @@ Your name is <span><%= @username %></span>
 
 <div id="responses" style="width: 100%; height: 800px;"></div>
 <%= render "rooms/responses.html.erb" %>
+<% end %>
+
 
 <h2>Users in the room:</h2>
 
