@@ -1,6 +1,60 @@
 <h1>Presentation View</h1>
 
+<script>
+  var presenting = true;
+</script>
 
-<% @room.student_infos.each do |info| %>
-    <%= info.name %> <a id="kick_<%= info.name %>" href="/rooms/kick/<%= @room.id %>/<%= info.name %>">Kick</a><br>
+<%= render "rooms/quizjs.html.erb" %>
+
+<h1><%= @room.name %></h1>
+Your name is <span><%= @username %></span>
+
+<% if @room.state.nil? %>
+    <h2 id="not_started">Quiz not yet started.</h2>
+<% elsif @room.state == "active" %>
+    <h2 id="started">Awaiting next question.</h2>
+<% elsif @room.state == "finished" %>
+    <h2 id="finished">The quiz is over.</h2>
 <% end %>
+
+<% if @finished and @room.state == "active" %>
+    <h2 id="finished">You have reached the last question.</h2>
+<% end %>
+
+<% if @room.active_question.present? %>
+<h2><span id="question_id">Question #<%= @question_idx %></span>: <%= @question.body %></h2>
+<% alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("") %>
+  <% @question.answers.each.with_index do |answer, idx| %>
+      <%= alpha[idx] %>.) <%= answer.text %> <br>
+  <% end %>
+<% end %>
+
+
+
+<script>
+    var question_id = <%= @question.id %>;
+    var responses =  <%== Response.where(question_id: @question.id).to_json %>;
+</script>
+
+<div id="responses" style="width: 100%; height: 800px;"></div>
+<%= render "rooms/responses.html.erb" %>
+
+<h2>Users in the room:</h2>
+
+<style>
+  .users {
+    list-style-type: none;
+  }
+  .li_user {
+    float: left;
+    display: inline;
+    margin: 10px;
+  }
+</style>
+<ul class="users" style="background: rgba(0, 0, 0, 0);">
+  <% @room.student_infos.each do |info| %>
+    <li class="li_user">
+      <%= info.name %>
+    </li>
+  <% end %>
+</ul>

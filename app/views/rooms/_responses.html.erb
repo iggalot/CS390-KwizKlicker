@@ -35,8 +35,8 @@
     svg.append("g")
         .attr("class", "lines");
 
-    var width = 960,
-        height = 450,
+    var width = 480,
+        height = 240,
         radius = Math.min(width, height) / 2;
 
     var pie = d3.layout.pie()
@@ -53,14 +53,17 @@
         .innerRadius(radius * 0.9)
         .outerRadius(radius * 0.9);
 
-    svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     var key = function(d){ return d.data.label; };
 
     var color;
 
+    svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    var div = document.getElementById("responses");
 
     setInterval(function() {
+
         $.get('/api/responses/' + question_id, function(data) {
             if(responses.length != data.length) {
                 responses = data;

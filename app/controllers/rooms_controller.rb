@@ -21,6 +21,12 @@ class RoomsController < ApplicationController
 
   def present
     @room = Room.find(params[:id])
+
+    if not @room.active_question.nil?
+      @question_idx = @room.active_question
+      @question = @room.questions[@question_idx - 1]
+    end
+
     render 'present'
   end
 
@@ -30,7 +36,7 @@ class RoomsController < ApplicationController
 
     StudentInfo.find_by(room_id: @room.id, name: @user).destroy
 
-    redirect_to '/rooms/present/' + @room.id.to_s
+    redirect_to '/rooms/remote/' + @room.id.to_s
   end
 
 
@@ -94,6 +100,7 @@ class RoomsController < ApplicationController
     @room.active_question = nil
     @room.state = nil
     @room.save
+    @room.student_infos.destroy_all
 
 
     redirect_to @room

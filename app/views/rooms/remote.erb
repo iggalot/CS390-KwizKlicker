@@ -6,3 +6,5 @@
     <div id="quiz_showing_question">quiz on question <%= @room.active_question %></div>
 <% end %>
 <a id="next_question" class="button" href="/rooms/remote/<%= @room.id %>/next">Next Question</a>
+
+<%= render "rooms/kickusers.html.erb" %>

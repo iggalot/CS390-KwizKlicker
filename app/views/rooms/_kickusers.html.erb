@@ -1,0 +1,55 @@
+<script>
+    var room_id = "<%= @room.id %>";
+
+
+    setInterval(function() {
+        $.get('/api/student_info/' + room_id, function(data) {
+            var names = data.map(function(x) {
+                return x.name;
+            });
+
+            var lis = Array.from(document.getElementsByClassName("kickable"));
+            var li_names = lis.map(function(x) { return x.id.split('_')[1]; });
+
+            for(var name of li_names) {
+                if(names.indexOf(name) < 0) {
+                    document.getElementById('li_' + name).outerHTML = "";
+                }
+            }
+
+            var users = document.getElementById("users");
+
+            for(var name of names) {
+                if(li_names.indexOf(name) < 0) {
+                    users.innerHTML += '<li class="kickable" id="li_' + name + '">' +
+                        '' + name + '<a class="button" id="kick_' + name + '" href="/rooms/kick/<%= @room.id %>/'+name+'">Kick</a>' +
+                        '</li>';
+                }
+            }
+        });
+    }, 200);
+</script>
+
+<style>
+
+  #users {
+    list-style-type: none;
+    width: 300px;
+  }
+  .kickable {
+    float: left;
+    display: inline;
+    width: 300px;
+  }
+  .kickable > a {
+    float: right;
+  }
+</style>
+
+<ul id="users" style="background: rgba(0, 0, 0, 0);">
+  <% @room.student_infos.each do |info| %>
+      <li class="kickable" id="li_<%= info.name %>">
+        <%= info.name %> <a class="button" id="kick_<%= info.name %>" href="/rooms/kick/<%= @room.id %>/<%= info.name %>">Kick</a>
+      </li>
+  <% end %>
+</ul>
