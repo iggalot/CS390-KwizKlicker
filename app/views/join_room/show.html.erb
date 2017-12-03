@@ -1,5 +1,6 @@
 <h1>Join Existing Room</h1>
 
+
 <% flash.each do |k, v| %>
     <p><%= v %></p>
 <% end %>
@@ -22,7 +23,7 @@
 
     <p>
       <%= form.label "Room Code" %><br>
-      <%= form.text_field :roomcode, placeholder: "put your room code here" %>
+      <%= form.text_field :roomcode, placeholder: "put your room code here", value: params[:code] %>
     </p>
 
     <p>

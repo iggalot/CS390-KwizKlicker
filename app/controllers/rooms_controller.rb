@@ -30,6 +30,10 @@ class RoomsController < ApplicationController
     render 'present2', :layout => false
   end
 
+  def roomglob
+	redirect_to '/join_room/show?code=' + params[:roomcode]
+  end
+
   def kick
     @room = Room.find(params[:id])
     @user = params[:username]

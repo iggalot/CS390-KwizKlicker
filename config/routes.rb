@@ -35,4 +35,6 @@ Rails.application.routes.draw do
    post 'show' => 'join_room#create'
     get 'show' => 'join_room#show'
     end
+
+  get '/:roomcode' => 'rooms#roomglob', constraints: { site_name: /[A-Z]{4}/ }
 end
