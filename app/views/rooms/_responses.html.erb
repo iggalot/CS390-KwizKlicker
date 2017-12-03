@@ -35,8 +35,8 @@
     svg.append("g")
         .attr("class", "lines");
 
-    var width = 480,
-        height = 240,
+    var width = document.getElementById("responses").clientWidth,
+        height = 150,
         radius = Math.min(width, height) / 2;
 
     var pie = d3.layout.pie()
@@ -62,10 +62,28 @@
 
     var div = document.getElementById("responses");
 
+    var alpha = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split(' ');
+
+
     setInterval(function() {
+
+        function tostring(d) {
+            return d.map(function(x) {
+                return x.username + " answered: " + alpha[x.answeridx];
+            });
+        }
 
         $.get('/api/responses/' + question_id, function(data) {
             if(responses.length != data.length) {
+                // find the events
+                var newS = tostring(data);
+                var oldS = tostring(responses);
+
+                for(var s of newS) {
+                    if(oldS.indexOf(s) < 0) {
+                        event(s);
+                    }
+                }
                 responses = data;
                 change(randomData());
             }
@@ -82,7 +100,6 @@
                 ret[r.answeridx]++;
         }
 
-        var alpha = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split(' ');
 
         color = d3.scale.ordinal()
             .domain(Object.keys(ret))

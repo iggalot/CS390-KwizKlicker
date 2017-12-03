@@ -27,7 +27,7 @@ class RoomsController < ApplicationController
       @question = @room.questions[@question_idx - 1]
     end
 
-    render 'present'
+    render 'present2', :layout => false
   end
 
   def kick
