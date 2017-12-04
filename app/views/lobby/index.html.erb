@@ -58,9 +58,8 @@
                       </a>
                     </div>
                     <div style="display:inline; width: 20%;">
-                      <a class="deleteButton" href="/rooms/destroy_room/<%= id %>">
-                        Delete Room
-                      </a>
+                      <%= link_to 'Delete', [Room.find(id)],
+                                  method: :delete, data: {confirm: 'Are you sure?'}, :class => "deleteButton" %>
                     </div>
                   </div>
               <% end %>
