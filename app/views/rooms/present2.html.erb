@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+      var presenting = true;
+  </script>
+  <%= render "rooms/quizjs.html.erb" %>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    .content {
+      min-height: 100%;
+      width: 1000px;
+      margin: 0 auto;
+      box-shadow: 12px 0 15px -4px rgba(0, 0, 0, 0.3), -12px 0 8px -4px rgba(0, 0, 0, 0.3);
+    }
+    .info {
+      min-height: 100%;
+      width: 33.33%;
+      float: left;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+    .question {
+      width: 66.66%;
+      float: right;
+      padding: 20px;
+      box-sizing: border-box;
+      padding-left: 50px;
+    }
+    .header {
+      height: 25px;
+      line-height: 25px;
+      background: #356C82;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
+      padding: 3px;
+      box-sizing: border-box;
+    }
+    .footer {
+      height: 50px;
+      margin-top: -50px;
+    }
+    body {
+      font: 16px Sans-Serif;
+    }
+    h1 {
+      margin: 0 0 20px 0;
+    }
+    p {
+      margin: 20px 0 0 0;
+    }
+    footer {
+      background: #3290B5;
+      color: white;
+      line-height: 50px;
+      padding: 0 20px;
+    }
+    .box {
+      margin-bottom: 20px;
+      box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.3);
+      padding: 5px;
+      box-sizing: border-box;
+    }
+  </style>
+  <title>QuizClicker</title>
+</head>
+
+<body>
+<div class="content">
+  <div class="info">
+    <div>
+      <h2><%= @room.name %></h2>
+    </div>
+    <div class="box" style="height: 75px; line-height: 50px;">
+      <div class="header">
+        Status
+      </div>
+      <% if @room.state.nil? %>
+          <span id="not_started">Quiz not yet started.</span>
+      <% elsif @room.state == "active" %>
+          <span id="started">Awaiting next question.</span>
+      <% elsif @room.state == "finished" %>
+          <span id="finished">The quiz is over.</span>
+      <% end %>
+    </div>
+    <div class="box" style="height: 100px; overflow-y: scroll;">
+      <div class="header">
+        Events
+      </div>
+      <ul id="events">
+
+      </ul>
+    </div>
+    <div class="box" style="min-height: 100px;">
+      <div class="header" style="margin-bottom: 10px;">
+        Online users
+      </div>
+      <div id="theusers">
+        <% @room.student_infos.each do |info| %>
+              <%= info.name %>,
+        <% end %>
+      </div>
+    </div>
+    <div class="box" style="min-height: 100px;">
+      <div class="header" style="margin-bottom: 10px;">
+        Responses
+      </div>
+      <div id="responses">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="header" style="text-align: right;">
+      Question <b><%= @room.active_question %> of <%= @room.questions.length %></b>
+    </div>
+    <div class="question_body" style="margin-top: 40px;">
+      <% if @room.active_question.present? and @room.state == "active" %>
+        <h1><%= @question.body %></h1>
+        <ul style="font-size: 32px; list-style-type: none;">
+              <% alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("") %>
+              <% @question.answers.each.with_index do |answer, idx| %>
+              <li><b><%= alpha[idx] %></b>&nbsp;&nbsp;&nbsp; <%= answer.text %></li>
+              <% end %>
+        </ul>
+      <% else %>
+        <h1>No question active yet.</h1>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="join" style="float: left; font-weight: bold;">
+    Join this room: quizclicker.net/<%= @room.roomcode %>
+  </div>
+  <img src="/quizlogo.png" style="float: right; height: 40px; padding-top: 5px;" />
+</footer>
+</body>
+
+<% if @room.active_question.present? %>
+
+    <% if @room.active_question.present? and @room.state == "active" %>
+
+<script>
+    function event(msg) {
+        $("#events").prepend("<li>" + msg + "</li>");
+    }
+
+    var question_id = <%= @question.id %>;
+    var responses =  <%== Response.where(question_id: @question.id).to_json %>;
+</script>
+
+    <%= render "rooms/responses.html.erb" %>
+
+<script>
+
+
+</script>
+
+<% end %>
+
+<script>
+  var room_id = "<%= @room.id %>";
+  var curnames = <%== @room.student_infos.map{ |s| s.name}.to_json %>;
+
+  setInterval(function() {
+    $.get('/api/student_info/' + room_id, function(data) {
+        var names = data.map(function (x) {
+            return x.name;
+        });
+
+        for(var old of curnames) {
+          if(names.indexOf(old) < 0)
+              event(old + " was kicked!");
+        }
+
+        for(var newn of names) {
+            if(curnames.indexOf(newn) < 0) {
+                event(newn + " has joined!")
+            }
+        }
+
+        document.getElementById("theusers").innerHTML = names.join(", ");
+        curnames = names;
+    });
+  }, 400);
+</script>
+
+    <%end%>
+
+</html>

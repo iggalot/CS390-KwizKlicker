@@ -35,8 +35,8 @@
     svg.append("g")
         .attr("class", "lines");
 
-    var width = 960,
-        height = 450,
+    var width = document.getElementById("responses").clientWidth,
+        height = 150,
         radius = Math.min(width, height) / 2;
 
     var pie = d3.layout.pie()
@@ -53,16 +53,37 @@
         .innerRadius(radius * 0.9)
         .outerRadius(radius * 0.9);
 
-    svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     var key = function(d){ return d.data.label; };
 
     var color;
 
+    svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    var div = document.getElementById("responses");
+
+    var alpha = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split(' ');
+
 
     setInterval(function() {
+
+        function tostring(d) {
+            return d.map(function(x) {
+                return x.username + " answered: " + alpha[x.answeridx];
+            });
+        }
+
         $.get('/api/responses/' + question_id, function(data) {
             if(responses.length != data.length) {
+                // find the events
+                var newS = tostring(data);
+                var oldS = tostring(responses);
+
+                for(var s of newS) {
+                    if(oldS.indexOf(s) < 0) {
+                        event(s);
+                    }
+                }
                 responses = data;
                 change(randomData());
             }
@@ -79,7 +100,6 @@
                 ret[r.answeridx]++;
         }
 
-        var alpha = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split(' ');
 
         color = d3.scale.ordinal()
             .domain(Object.keys(ret))

@@ -2,8 +2,8 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 require 'support/wait_for_ajax'
 
-Capybara.javascript_driver = :poltergeist
-Capybara.current_driver = :poltergeist
+Capybara.javascript_driver = :selenium
+Capybara.current_driver = :selenium
 
 def in_browser(name)
   old_session = Capybara.session_name
@@ -195,7 +195,7 @@ feature "Create room", js: true do
     end
 
     in_browser(:teacher) do
-      visit '/rooms/present/' + @room.id.to_s
+      visit '/rooms/remote/' + @room.id.to_s
 
       expect(page).to have_selector("#kick_badstudent")
 
@@ -205,7 +205,7 @@ feature "Create room", js: true do
     end
 
     in_browser(:student) do
-      sleep(10)
+      sleep(5)
       expect(page).to have_content("KwizKlicker Lobby")
     end
   end

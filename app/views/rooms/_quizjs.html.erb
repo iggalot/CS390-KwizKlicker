@@ -24,7 +24,11 @@
             //console.log('going to question', test);
             test = true;
             clearInterval(job);
-            window.location.href = '/rooms/quiz/' + room_id + '/question/' + data.question;
+
+            if(!presenting)
+              window.location.href = '/rooms/quiz/' + room_id + '/question/' + data.question;
+            else
+              window.location.reload();
         }
 
     });

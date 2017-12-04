@@ -33,4 +33,6 @@ Rails.application.routes.draw do
 
   #for the action cable web socket stuff
   mount ActionCable.server, at: '/cable'
+
+  get '/:roomcode' => 'rooms#roomglob', constraints: { site_name: /[A-Z]{4}/ }
 end

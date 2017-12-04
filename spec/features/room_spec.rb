@@ -32,3 +32,20 @@ feature "Create room" do
 	end
 
 end
+
+feature "Present quiz" do
+
+  scenario "Teacher clicks present quiz" do
+    @room = Room.create(name: "Asdf III", password: "passw", roomcode: "XYUU")
+
+    visit '/rooms/' + @room.id.to_s
+    fill_in "password", :with => "passw"
+    find('input[type=submit]').click
+
+
+    expect(page).to have_text('Present Quiz')
+    click_on "Present Quiz"
+    expect(page).to have_text('Presentation View')
+    end
+
+end

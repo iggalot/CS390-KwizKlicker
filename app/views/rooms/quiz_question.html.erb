@@ -2,11 +2,27 @@
 <%= render "rooms/quizjs.html.erb" %>
 <%= render "rooms/kick.html.erb" %>
 
+<h2><span id="seconds">60 </span> seconds left</h2>
+
 <h2><span id="question_id">Question #<%= @question_idx %></span>: <%= @question.body %></h2>
+<% alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("") %>
 <form method="post" style="margin: 50px;">
   <% @question.answers.each.with_index do |answer, idx| %>
-      <input type="radio" name="response" value="<%= idx %>" id="option<%= idx %>"/> <%= answer.text %> <br>
+      <input type="radio" name="response" value="<%= idx %>" id="option<%= idx %>"/> <%= alpha[idx] %>.) <%= answer.text %> <br>
   <% end %>
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
   <button>Submit Answer</button>
 </form>
+
+<script>
+  var time = 60;
+  var secs = document.getElementById("seconds");
+
+  setInterval(function() {
+    time--;
+    if(time == 0)
+        window.location.href = "/rooms/quiz/"  + <%= @room.id.to_s %>;
+    secs.innerHTML = time;
+
+  }, 1000)
+</script>

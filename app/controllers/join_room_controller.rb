@@ -1,8 +1,6 @@
 class JoinRoomController < ApplicationController
   def show
-    #@info = StudentInfo.find(params[:id])
-
-    #render 'show'
+    @info = StudentInfo.new
   end
 
   def default
@@ -14,6 +12,7 @@ class JoinRoomController < ApplicationController
 
 
     temp = StudentInfo.new(join_room_params)
+    @info = StudentInfo.new(join_room_params)
 
     if (Room.find_by_roomcode(temp.roomcode.upcase).present?)
 
@@ -21,7 +20,7 @@ class JoinRoomController < ApplicationController
       @info = @room.student_infos.create(join_room_params)
 
       if (@info.save)
-        session[:info] = @info
+        session[:info_id] = @info.id
         session[:username] = @info.name
         session[:roomcode] = @info.room
 
@@ -31,26 +30,15 @@ class JoinRoomController < ApplicationController
           redirect_to '/rooms/quiz/' + @room.id.to_s
         end
 
+      else
+        render 'show'
       end
 
     else
-
-=begin
-      if (@info.name.blank?)
-        flash[:name] = "Name can't be blank"
+      if(Room.find_by_roomcode(temp.roomcode.upcase).nil?)
+        flash[:roomcode] = "Not a Valid Roomcode"
       end
 
-      if (@info.room.blank?)
-        flash[:room] = "Roomcode can't be blank"
-
-      else if (@info.room.length != 4)
-             flash[:room] = "Roomcode must be 4 letters"
-           end
-        #else Room.find_by_roomcode(@info.room).nil?
-                  #flash[:room] = "Invalid roomcode"
-
-      end
-=end
       render 'show'
     end
   end
