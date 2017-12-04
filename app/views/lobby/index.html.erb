@@ -52,9 +52,16 @@
               <% end %>
               <% unless id.nil? %>
                   <div>
-                    <a class="RoomItem" href="/rooms/<%= id %>">
-                      <%= Room.find(id).name %>
-                    </a>
+                    <div style="display:inline-block; width: 80%;">
+                      <a class="RoomItem" href="/rooms/<%= id %>">
+                        <%= Room.find(id).name %>
+                      </a>
+                    </div>
+                    <div style="display:inline; width: 20%;">
+                      <a class="deleteButton" href="/rooms/destroy_room/<%= id %>">
+                        Delete Room
+                      </a>
+                    </div>
                   </div>
               <% end %>
           <% end %>

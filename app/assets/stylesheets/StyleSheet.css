@@ -201,12 +201,14 @@ h4 {
     text-decoration:none;
     font-size: 24px;
     font-family: Monospace;
+    display: inline;
+    width: 80px;
 }
 
 .RoomItem:hover{
     background-color:orange;
     padding-top: 0px;
-    padding-bottom: 0px; 
+    padding-bottom: 0px;
     padding-right: 25px;
     text-decoration:none;
 }
@@ -215,6 +217,10 @@ h4 {
     background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
+}
+
+.deleteButton{
+    display: inline;
 }
 
 li:hover{
