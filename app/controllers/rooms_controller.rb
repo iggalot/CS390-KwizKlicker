@@ -27,7 +27,11 @@ class RoomsController < ApplicationController
       @question = @room.questions[@question_idx - 1]
     end
 
-    render 'present'
+    render 'present2', :layout => false
+  end
+
+  def roomglob
+	redirect_to '/join_room/show?code=' + params[:roomcode]
   end
 
   def kick
