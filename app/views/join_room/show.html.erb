@@ -11,7 +11,7 @@
         <div id="error_explanation">
           <h2>
             <%= pluralize(@info.errors.count, "error") %>
-            prevented you from making this room:
+            prevented you from joining this room:
           </h2>
           <ul>
             <% @info.errors.full_messages.each do |msg| %>
